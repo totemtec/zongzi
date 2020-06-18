@@ -13,7 +13,7 @@ $(function () {
             imgUrl: 'https://mmbiz.qpic.cn/mmemoticon/ajNVdqHZLLA16apETUPXh9Q5GLpSic7lGuiaic0jqMt4UY8P4KHSBpEWgM7uMlbxxnVR7596b3NPjUfwg7cFbfCtA/0'
         };
 
-        let url = 'https://wxspapi.totemtec.com/wechat/jsconfig?url='
+        let url = 'https://wxspapi.totemtec.com/authorizer/jsconfig?url='
                 + encodeURIComponent(location.href.split('#')[0]) + '&appId=' + authorizerAppId;
 
         $.getJSON( url, function (res) {
@@ -45,7 +45,7 @@ $(function () {
 
     function login(appid, code){
 
-        let url = 'https://wxspapi.totemtec.com/wechat/login?code=' + code + '&appId=' + appid;
+        let url = 'https://wxspapi.totemtec.com/user/login?code=' + code + '&appid=' + appid;
 
         $.getJSON( url, function (res) {
             if (res.code == 1) {
@@ -82,7 +82,7 @@ $(function () {
                 let redirect = encodeURI(url);
                 let authorizeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + authorizerAppId
                 + "&redirect_uri=" + redirect 
-                + "&response_type=code&scope=snsapi_base&state=authorized&component_appid=" + componentAppId
+                + "&response_type=code&scope=snsapi_userinfo&state=authorized&component_appid=" + componentAppId
                 + "#wechat_redirect";
                 window.location.assign(authorizeUrl);
                 return;
