@@ -60,7 +60,7 @@ $(function () {
 
     function showUserInfo(user) {
         console.log(user.id);
-        
+        showZongzi(user);
     }
 
     function login(appid, code){

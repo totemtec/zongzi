@@ -14,93 +14,78 @@
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/m_main.css" />
+	<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.0/weui.min.css" />
+	
+	<script type="text/javascript">
+		const zongzi = true;
+	</script>
+
 </head>
 <body>
+	<div class="mask" id="mask" style="display:none;"></div>
 <!--分享弹窗开始-->
 	<div class="sharetext" style="display:none;">
-		<div class="mask"></div>
 		<span></span>
 		<p class="bs">点击“分享”, 邀请4个好友助力收集粽子，集齐全部粽子即可拆开礼盒。</p>
 	</div>
 <!--分享弹窗结束-->
 <!--关注公众号开始-->
-<div class="tkbox gzhcontent">
-	<div class="maskall"></div>
-	<div class="gzgzhbox">
+	<div class="gzgzhbox" style="display:none;">
 		<h2>关注“盛京银行”公众号<br/>参与活动</h2>
 		<img src="images/wx.png"/>
 		<h4>长按识别二维码</h4>
 		<a class="closebtn">知道了</a>
 	</div>
-</div>
 <!--关注公众号结束-->
 <!--收集一枚粽子弹窗开始-->
-<div class="tkbox" style="display:none;">
-	<div class="maskall"></div>
-	<div class="collectcg">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_sjcg.png"/>
 			<a class="linkbtn">我也要参加</a>
 		</div>
 	</div>
-</div>
 <!--收集一枚粽子弹窗结束-->
 <!--中奖了弹窗开始-->
-<div class="tkbox" style="display:none;">
-	<div class="maskall"></div>
-	<div class="collectcg">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_zj.png"/>
-			<a class="linkbtn" href="address.html">填写联系地址</a>
+			<a class="linkbtn">填写联系地址</a>
 		</div>
 	</div>
-</div>
 <!--中奖了弹窗结束-->
 <!--中奖了视频会员卡弹窗开始-->
-<div class="tkbox" style="display:none;">
-	<div class="maskall"></div>
-	<div class="collectcg">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_sphyk.png"/>
 		</div>
 	</div>
-</div>
 <!--中奖了视频会员卡弹窗结束-->
 <!--重复助力弹窗开始-->
-<div class="tkbox" style="display:none;">
-	<div class="maskall"></div>
-	<div class="collectcg">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_cfzl.png"/>
 		</div>
 	</div>
-</div>
 <!--重复助力弹窗结束-->
 <!--未中奖弹窗开始-->
-<div class="tkbox" style="display:none;">
-	<div class="maskall"></div>
-	<div class="collectcg">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_wzj.png"/>
 		</div>
 	</div>
-</div>
 <!--未中奖弹窗结束-->
 <!--未获得奖品弹窗开始-->
-<div class="tkbox" style="display:none;">
-	<div class="maskall"></div>
-	<div class="collectcg">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_wjp.png"/>
 		</div>
 	</div>
-</div>
 <!--未获得奖品弹窗结束-->
 	<section class="contentbox jzzbox">
 		<div class="mygift">
@@ -109,13 +94,15 @@
 		<h2 class="titlesp">粽子已集齐，快去领取吧！</h2>
 		<div class="giftpt"><img src="images/lwpt.png"/></div>
 		<div class="zzbox">
-			<span class="cfz active">财富粽</span>
-			<span class="jkz active">健康粽</span>
-			<span class="xfz active">幸福粽</span>
-			<span class="syz active">事业粽</span>
+			<span class="cfz">财富粽</span>
+			<span class="jkz">健康粽</span>
+			<span class="xfz">幸福粽</span>
+			<span class="syz">事业粽</span>
 		</div>
 		<h5>邀请4位好友帮忙收集粽子可领取</h5>
-		<a class="lqgiftbtn">领取礼物</a>
+		<a class="lqgiftbtn" id="play">找好友集粽子</a>
+		<a class="lqgiftbtn" id="gift" style="display: none;">领取礼物</a>
+		<a class="lqgiftbtn" id="like" style="display: none;">帮好友点赞</a>
 		<div class="rulebox bs">
 			<h3>活动规则</h3>
 			<p><span>1、</span>邀请4个好友助力收集粽子，集齐全部粽子即可拆开礼盒。</p>
@@ -128,18 +115,72 @@
 	</section>
 	<script type="text/javascript">
 		//关闭分享弹窗
-		$(".mask").click(function(){
-			$(".sharetext").hide();
-			$(".mask").hide();
+		$(".header .textbtn").click(function(){
+			$(".sharetext").fadeOut();
+			$(".mask").fadeOut();
 		})
+
+		$("#mask").click(function(){
+			$(".sharetext").fadeOut();
+			$(".mask").fadeOut();
+		})
+
 		//关闭公众号弹窗
 		$(".gzgzhbox .closebtn").click(function(){
-			$(".gzhcontent").hide();
+			$(".gzgzhbox").fadeOut();
+			$(".mask").fadeOut();
 		})
 		//关闭弹窗
-		$(".collectcg .closebtn,.collectcg .poupbox .linkbtn").click(function(){
-			$(".tkbox").hide();
+		$(".collectcg .closebtn").click(function(){
+			$(".collectcg").fadeOut();
+			$(".mask").fadeOut();
 		})
 	</script>
+
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+
+<script type="text/javascript" src="js/global.js"></script>
+
+<script type="text/javascript" src="js/wechat.js" ></script>
+
+
+<script type="text/javascript">
+
+function showZongzi(user) {
+	if (user) {
+		user.likeCount = 2;
+	
+		if (user.likeCount > 0) {
+			$('#cfz').addClass('active');
+		}
+
+		if (user.likeCount > 1) {
+			$('#jkz').addClass('active');
+		}
+
+		if (user.likeCount > 2) {
+			$('#xfz').addClass('active');
+		}
+
+		if (user.likeCount > 3) {
+			$('#syz').addClass('active');
+		}
+	}
+}
+
+
+   $("#play").click(function(){
+		let user  = getUser();
+		user.subscribe = 0;
+		if (user && user.subscribe == 0) {
+			$(".gzgzhbox").fadeIn();
+			$(".mask").fadeIn();
+		} else {
+			$(".sharetext").fadeIn();
+			$(".mask").fadeIn();
+		}
+	});
+</script>
 </body>
 </html>
