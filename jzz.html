@@ -16,70 +16,91 @@
 	<link rel="stylesheet" href="css/m_main.css" />
 </head>
 <body>
-	<div class="mask"></div>
 <!--分享弹窗开始-->
-	<div class="sharetext">
+	<div class="sharetext" style="display:none;">
+		<div class="mask"></div>
 		<span></span>
 		<p class="bs">点击“分享”, 邀请4个好友助力收集粽子，集齐全部粽子即可拆开礼盒。</p>
 	</div>
 <!--分享弹窗结束-->
 <!--关注公众号开始-->
-	<div class="gzgzhbox" style="display:none;">
+<div class="tkbox gzhcontent">
+	<div class="maskall"></div>
+	<div class="gzgzhbox">
 		<h2>关注“盛京银行”公众号<br/>参与活动</h2>
 		<img src="images/wx.png"/>
 		<h4>长按识别二维码</h4>
 		<a class="closebtn">知道了</a>
 	</div>
+</div>
 <!--关注公众号结束-->
 <!--收集一枚粽子弹窗开始-->
-	<div class="collectcg" style="display:none;">
+<div class="tkbox" style="display:none;">
+	<div class="maskall"></div>
+	<div class="collectcg">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_sjcg.png"/>
 			<a class="linkbtn">我也要参加</a>
 		</div>
 	</div>
+</div>
 <!--收集一枚粽子弹窗结束-->
 <!--中奖了弹窗开始-->
-	<div class="collectcg" style="display:none;">
+<div class="tkbox" style="display:none;">
+	<div class="maskall"></div>
+	<div class="collectcg">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_zj.png"/>
-			<a class="linkbtn">填写联系地址</a>
+			<a class="linkbtn" href="address.html">填写联系地址</a>
 		</div>
 	</div>
+</div>
 <!--中奖了弹窗结束-->
 <!--中奖了视频会员卡弹窗开始-->
-	<div class="collectcg" style="display:none;">
+<div class="tkbox" style="display:none;">
+	<div class="maskall"></div>
+	<div class="collectcg">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_sphyk.png"/>
 		</div>
 	</div>
+</div>
 <!--中奖了视频会员卡弹窗结束-->
 <!--重复助力弹窗开始-->
-	<div class="collectcg" style="display:none;">
+<div class="tkbox" style="display:none;">
+	<div class="maskall"></div>
+	<div class="collectcg">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_cfzl.png"/>
 		</div>
 	</div>
+</div>
 <!--重复助力弹窗结束-->
 <!--未中奖弹窗开始-->
-	<div class="collectcg" style="display:none;">
+<div class="tkbox" style="display:none;">
+	<div class="maskall"></div>
+	<div class="collectcg">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_wzj.png"/>
 		</div>
 	</div>
+</div>
 <!--未中奖弹窗结束-->
 <!--未获得奖品弹窗开始-->
-	<div class="collectcg" style="display:none;">
+<div class="tkbox" style="display:none;">
+	<div class="maskall"></div>
+	<div class="collectcg">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_wjp.png"/>
 		</div>
 	</div>
+</div>
 <!--未获得奖品弹窗结束-->
 	<section class="contentbox jzzbox">
 		<div class="mygift">
@@ -107,20 +128,17 @@
 	</section>
 	<script type="text/javascript">
 		//关闭分享弹窗
-		$(".mask,header .textbtn").click(function(){
-			$(".sharetext").fadeOut();
-			$(".mask").fadeOut();
-			$("header .textbtn").removeClass("select");
+		$(".mask").click(function(){
+			$(".sharetext").hide();
+			$(".mask").hide();
 		})
 		//关闭公众号弹窗
 		$(".gzgzhbox .closebtn").click(function(){
-			$(".gzgzhbox").fadeOut();
-			$(".mask").fadeOut();
+			$(".gzhcontent").hide();
 		})
 		//关闭弹窗
-		$(".collectcg .closebtn").click(function(){
-			$(".collectcg").fadeOut();
-			$(".mask").fadeOut();
+		$(".collectcg .closebtn,.collectcg .poupbox .linkbtn").click(function(){
+			$(".tkbox").hide();
 		})
 	</script>
 </body>
