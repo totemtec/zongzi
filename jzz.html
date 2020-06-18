@@ -18,13 +18,13 @@
 <body>
 	<div class="mask"></div>
 <!--分享弹窗开始-->
-	<div class="sharetext">
+	<div class="sharetext" style="display:none;">
 		<span></span>
 		<p class="bs">点击“分享”, 邀请4个好友助力收集粽子，集齐全部粽子即可拆开礼盒。</p>
 	</div>
 <!--分享弹窗结束-->
 <!--关注公众号开始-->
-	<div class="gzgzhbox" style="display:none;">
+	<div class="gzgzhbox">
 		<h2>关注“盛京银行”公众号<br/>参与活动</h2>
 		<img src="images/wx.png"/>
 		<h4>长按识别二维码</h4>
@@ -107,10 +107,9 @@
 	</section>
 	<script type="text/javascript">
 		//关闭分享弹窗
-		$(".mask,header .textbtn").click(function(){
+		$(".mask").click(function(){
 			$(".sharetext").fadeOut();
 			$(".mask").fadeOut();
-			$("header .textbtn").removeClass("select");
 		})
 		//关闭公众号弹窗
 		$(".gzgzhbox .closebtn").click(function(){
