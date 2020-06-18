@@ -1,15 +1,15 @@
-const footerTmpl = $('#footerTmpl').html();
+
 $(function () {
     
     let authorizerAppId = 'wx1bc322412db3080c';
     let componentAppId = 'wxfbd30d57a71d760e';
         
-    function setJSAPI(){
+    function setJSAPI(user){
 
         var option = {
             title: 'WeUI, 为微信 Web 服务量身设计',
             desc: 'WeUI, 为微信 Web 服务量身设计',
-            link: "https://weui.io",
+            link: "https://wxsp.totemtec.com/jzz.html?uid=" + user.id,
             imgUrl: 'https://mmbiz.qpic.cn/mmemoticon/ajNVdqHZLLA16apETUPXh9Q5GLpSic7lGuiaic0jqMt4UY8P4KHSBpEWgM7uMlbxxnVR7596b3NPjUfwg7cFbfCtA/0'
         };
 
@@ -43,6 +43,26 @@ $(function () {
         });
     }
 
+    function getUserInfo(){
+
+        let url = 'https://wxspapi.totemtec.com/user/info';
+
+        $.getJSON( url, function (res) {
+            if (res.code == 1) {
+                let user = res.data;
+                
+                setUser(user);
+
+                showUserInfo(user);
+            }
+        });
+    }
+
+    function showUserInfo(user) {
+        console.log(user.id);
+        
+    }
+
     function login(appid, code){
 
         let url = 'https://wxspapi.totemtec.com/user/login?code=' + code + '&appid=' + appid;
@@ -50,7 +70,10 @@ $(function () {
         $.getJSON( url, function (res) {
             if (res.code == 1) {
                 localStorage.setItem('token', res.token);
-                localStorage.setItem('user', res.data);
+                setUser(res.data);
+
+                showUserInfo(res.data);
+                setJSAPI(res.data);
             }
         });
     }
@@ -64,6 +87,7 @@ $(function () {
         
         if (state && !code) {
             //用户禁止授权，弹框提示，我们是静默授权，不会发生这种情形
+            alert("请授权访问用户信息");
         }
 
         // 授权回调
@@ -75,7 +99,18 @@ $(function () {
             let token = localStorage.getItem("token");
             // 已授权登录
             if (token) {
-                setJSAPI();
+
+                $.ajaxSetup({
+                    headers: { "Authorization": token }
+                });
+
+                let user = getUser();
+                if (user) {
+                    showUserInfo(user);
+                    setJSAPI(user);
+                }
+
+                getUserInfo();
             } else {
                 //去授权
                 let url = window.location.href
