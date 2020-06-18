@@ -115,7 +115,9 @@ $(function () {
                 });
 
                 let user = getUser();
-                showInfo(user, null, shareKey);
+                if (user && (!shareKey || user.shareKey == shareKey)) {
+                    showInfo(user, null, shareKey);
+                }
 
                 getUserInfo();
             } else {

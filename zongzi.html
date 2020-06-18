@@ -146,6 +146,7 @@
 
 		$("#like").click(function(){
 			alert('助力成功');
+			$.getUserInfo();
 		});
 
 		$("#gift").click(function(){
@@ -166,19 +167,19 @@
 const zongziPage = true;
 
 function showZongzi(count) {
-	if (user.likeCount > 0) {
+	if (count > 0) {
 		$('.cfz').addClass('active');
 	}
 
-	if (user.likeCount > 1) {
+	if (count > 1) {
 		$('.jkz').addClass('active');
 	}
 
-	if (user.likeCount > 2) {
+	if (count > 2) {
 		$('.xfz').addClass('active');
 	}
 
-	if (user.likeCount > 3) {
+	if (count > 3) {
 		$('.syz').addClass('active');
 	}
 }
@@ -188,9 +189,23 @@ function showInfoOnPage(user, shareUser, shareKey) {
 	//展示朋友信息
 	if (shareUser && shareKey) {
 		likeCount = shareUser.likeCount;
+		$("#like").css('display','block');
+		$("#play").css('display','none'); 
+		$("#gift").css('display','none'); 
 	} else {
 		//展示自己信息
 		likeCount = user.likeCount;
+
+		$("#like").css('display','none');
+
+		if (likeCount > 0) {
+			$("#play").css('display','none');
+			$("#gift").css('display','block');
+		} else {
+			$("#play").css('display','block');
+			$("#gift").css('display','none');
+		}
+		
 	}
 	
 	showZongzi(likeCount);
