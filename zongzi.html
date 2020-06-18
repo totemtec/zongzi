@@ -146,7 +146,11 @@
 
 		$("#like").click(function(){
 			alert('助力成功');
-			$.getUserInfo();
+
+			const urlParams = new URLSearchParams(window.location.search);
+        	shareKey = urlParams.get('uk');
+		
+			likeFriend(shareKey);
 		});
 
 		$("#gift").click(function(){
