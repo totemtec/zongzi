@@ -1,3 +1,4 @@
+var shareKey = null;
 
 $(function () {
     
@@ -6,11 +7,15 @@ $(function () {
         
     function setJSAPI(user){
 
+        let shareUrl = window.location.href;
+        shareUrl = shareUrl.split(/[?#]/)[0];
+        shareUrl = shareUrl + '?uk=' + user.shareKey;
+
         var option = {
-            title: 'WeUI, 为微信 Web 服务量身设计',
-            desc: 'WeUI, 为微信 Web 服务量身设计',
-            link: "https://wxsp.totemtec.com/jzz.html?uid=" + user.id,
-            imgUrl: 'https://mmbiz.qpic.cn/mmemoticon/ajNVdqHZLLA16apETUPXh9Q5GLpSic7lGuiaic0jqMt4UY8P4KHSBpEWgM7uMlbxxnVR7596b3NPjUfwg7cFbfCtA/0'
+            title: '浓情端午，粽享好礼',
+            desc: '浓情端午，粽享好礼！邀请4个好友助力收集粽子，集齐全部粽子即可拆开礼盒',
+            link: shareUrl,
+            imgUrl: 'https://wxsp.totemtec.com/images/shengjinglogo.png'
         };
 
         let url = 'https://wxspapi.totemtec.com/authorizer/jsconfig?url='
@@ -30,15 +35,8 @@ $(function () {
                 ]
             });
             wx.ready(function () {
-                
                 wx.onMenuShareTimeline(option);
-                wx.onMenuShareQQ(option);
-                wx.onMenuShareAppMessage({
-                    title: 'WeUI',
-                    desc: '为微信 Web 服务量身设计',
-                    link: location.href,
-                    imgUrl: 'https://mmbiz.qpic.cn/mmemoticon/ajNVdqHZLLA16apETUPXh9Q5GLpSic7lGuiaic0jqMt4UY8P4KHSBpEWgM7uMlbxxnVR7596b3NPjUfwg7cFbfCtA/0'
-                });
+                wx.onMenuShareAppMessage(option);
             });
         });
     }
@@ -46,33 +44,44 @@ $(function () {
     function getUserInfo(){
 
         let url = 'https://wxspapi.totemtec.com/user/info';
+        if (shareKey) {
+            url = url + '?uk='+shareKey;
+        }
 
         $.getJSON( url, function (res) {
             if (res.code == 1) {
                 let user = res.data;
+                let shareUser = res.shareUser;
                 
                 setUser(user);
 
-                showUserInfo(user);
+                showInfo(user, shareUser, shareKey);
             }
         });
     }
 
-    function showUserInfo(user) {
+    function showInfo(user, shareUser, key) {
         console.log(user.id);
-        showZongzi(user);
+        if (zongziPage) {
+            showInfoOnPage(user, shareUser, key);
+        }
     }
 
     function login(appid, code){
 
         let url = 'https://wxspapi.totemtec.com/user/login?code=' + code + '&appid=' + appid;
+        if (shareKey) {
+            url = url + '&uk='+shareKey;
+        }
 
         $.getJSON( url, function (res) {
             if (res.code == 1) {
                 localStorage.setItem('token', res.token);
                 setUser(res.data);
 
-                showUserInfo(res.data);
+                let user = res.data;
+                let shareUser = res.shareUser;
+                showInfo(user, shareUser, shareKey);
                 setJSAPI(res.data);
             }
         });
@@ -84,6 +93,7 @@ $(function () {
         const code = urlParams.get('code');
         const state = urlParams.get('state');
         const appid = urlParams.get('appid');
+        shareKey = urlParams.get('uk');
         
         if (state && !code) {
             //用户禁止授权，弹框提示，我们是静默授权，不会发生这种情形
@@ -105,10 +115,7 @@ $(function () {
                 });
 
                 let user = getUser();
-                if (user) {
-                    showUserInfo(user);
-                    setJSAPI(user);
-                }
+                showInfo(user, null, shareKey);
 
                 getUserInfo();
             } else {

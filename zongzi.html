@@ -15,14 +15,11 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/m_main.css" />
 	<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.0/weui.min.css" />
-	
-	<script type="text/javascript">
-		const zongzi = true;
-	</script>
 
 </head>
 <body>
-	<div class="mask" id="mask" style="display:none;"></div>
+	<div class="mask" id="mask0" style="display:none;"></div>
+	<div class="mask" id="mask1" style="display:none;"></div>
 <!--分享弹窗开始-->
 	<div class="sharetext" style="display:none;">
 		<span></span>
@@ -91,7 +88,7 @@
 		<div class="mygift">
 			<a href="mygift.html">我的礼品</a>
 		</div>
-		<h2 class="titlesp">粽子已集齐，快去领取吧！</h2>
+		<h2 class="titlesp">全部集齐可以领取礼包</h2>
 		<div class="giftpt"><img src="images/lwpt.png"/></div>
 		<div class="zzbox">
 			<span class="cfz">财富粽</span>
@@ -120,7 +117,7 @@
 			$(".mask").fadeOut();
 		})
 
-		$("#mask").click(function(){
+		$("#mask0").click(function(){
 			$(".sharetext").fadeOut();
 			$(".mask").fadeOut();
 		})
@@ -128,13 +125,32 @@
 		//关闭公众号弹窗
 		$(".gzgzhbox .closebtn").click(function(){
 			$(".gzgzhbox").fadeOut();
-			$(".mask").fadeOut();
+			$("#mask1").fadeOut();
 		})
 		//关闭弹窗
 		$(".collectcg .closebtn").click(function(){
 			$(".collectcg").fadeOut();
-			$(".mask").fadeOut();
+			$("#mask1").fadeOut();
 		})
+
+		$("#play").click(function(){
+			let user  = getUser();
+			if (user && user.subscribe == 0) {
+				$(".gzgzhbox").fadeIn();
+				$("#mask1").fadeIn();
+			} else {
+				$(".sharetext").fadeIn();
+				$("#mask0").fadeIn();
+			}
+		});
+
+		$("#like").click(function(){
+			alert('助力成功');
+		});
+
+		$("#gift").click(function(){
+			alert('中奖信息');
+		});
 	</script>
 
 <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
@@ -147,40 +163,41 @@
 
 <script type="text/javascript">
 
-function showZongzi(user) {
-	if (user) {
-		user.likeCount = 2;
-	
-		if (user.likeCount > 0) {
-			$('.cfz').addClass('active');
-		}
+const zongziPage = true;
 
-		if (user.likeCount > 1) {
-			$('.jkz').addClass('active');
-		}
+function showZongzi(count) {
+	if (user.likeCount > 0) {
+		$('.cfz').addClass('active');
+	}
 
-		if (user.likeCount > 2) {
-			$('.xfz').addClass('active');
-		}
+	if (user.likeCount > 1) {
+		$('.jkz').addClass('active');
+	}
 
-		if (user.likeCount > 3) {
-			$('.syz').addClass('active');
-		}
+	if (user.likeCount > 2) {
+		$('.xfz').addClass('active');
+	}
+
+	if (user.likeCount > 3) {
+		$('.syz').addClass('active');
 	}
 }
 
+function showInfoOnPage(user, shareUser, shareKey) {
+	let likeCount = 0;
+	//展示朋友信息
+	if (shareUser && shareKey) {
+		likeCount = shareUser.likeCount;
+	} else {
+		//展示自己信息
+		likeCount = user.likeCount;
+	}
+	
+	showZongzi(likeCount);
+}
 
-   $("#play").click(function(){
-		let user  = getUser();
-		user.subscribe = 0;
-		if (user && user.subscribe == 0) {
-			$(".gzgzhbox").fadeIn();
-			$(".mask").fadeIn();
-		} else {
-			$(".sharetext").fadeIn();
-			$(".mask").fadeIn();
-		}
-	});
+
+   
 </script>
 </body>
 </html>
