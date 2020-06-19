@@ -3,7 +3,7 @@ var shareKey = null;
 $(function () {
     
     let componentAppId = 'wxfbd30d57a71d760e';
-    let authorizerAppId = 'wxf0d209a185bb9082';
+    let authorizerAppId = 'wx1bc322412db3080c';
         
     function setJSAPI(user){
 
@@ -92,6 +92,8 @@ $(function () {
                 if (user && (!shareKey || user.shareKey == shareKey)) {
                     showInfo(user, null, shareKey);
                 }
+
+                setJSAPI(user);
 
                 getUserInfo(shareKey);
             } else {

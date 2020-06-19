@@ -35,9 +35,9 @@
 	</div>
 <!--关注公众号结束-->
 <!--收集一枚粽子弹窗开始-->
-	<div class="collectcg" style="display:none;">
+	<div class="collectcg" style="display:none;" id="likeSuccess">
 		<span class="closebtn">关闭</span>
-		<div class="poupbox">
+		<div class="poupbox" id="playGame">
 			<img src="images/tc_sjcg.png"/>
 			<a class="linkbtn">我也要参加</a>
 		</div>
@@ -87,7 +87,7 @@
 	<section class="contentbox jzzbox">
 		<div class="headbox">
 			<span><img src="images/tx.jpg"/></span>
-			<p>维尼的熊</p>
+			<p>昵称</p>
 		</div>
 		<div class="mygift" id="mygift">
 			<a href="mygift.html">我的礼品</a>
@@ -191,6 +191,14 @@
 		$("#gift").click(function(){
 			alert('中奖信息');
 		});
+		
+		$("#playGame").click(function(){
+			$('#likeSuccess').fadeOut();
+			$('#mask1').fadeOut();
+			setTimeout(function(){ 
+				window.location.assign('https://wxsp.totemtec.com/zongzi.html');
+			}, 1000);
+		});
 	</script>
 
 <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
@@ -223,8 +231,15 @@ function showZongzi(count) {
 	}
 }
 
-function showInfoOnPage(user, shareUser, shareKey) {
+function showInfoOnPage(user, shareUser, shareKey, likeSuccess) {
 	let likeCount = 0;
+
+
+	if(likeSuccess) {
+		$('#likeSuccess').fadeIn();
+		$('#mask1').fadeIn();
+	}
+
 	//展示朋友信息
 	if (shareUser && shareKey) {
 		likeCount = shareUser.likeCount;

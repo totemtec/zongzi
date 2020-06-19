@@ -41,7 +41,7 @@ function likeFriend(shareKey){
             let user = res.data;
             let shareUser = res.shareUser;
 
-            showInfo(user, shareUser, shareKey);
+            showInfo(user, shareUser, shareKey, true);
         } else if (res.code > 1000) {
             alert(res.message);
         }
@@ -49,9 +49,9 @@ function likeFriend(shareKey){
 }
 
 
-function showInfo(user, shareUser, key) {
+function showInfo(user, shareUser, key, likeSuccess) {
     console.log(user.id);
     if (zongziPage) {
-        showInfoOnPage(user, shareUser, key);
+        showInfoOnPage(user, shareUser, key, likeSuccess);
     }
 }
