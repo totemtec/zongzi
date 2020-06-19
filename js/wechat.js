@@ -11,6 +11,8 @@ $(function () {
         shareUrl = shareUrl.split(/[?#]/)[0];
         shareUrl = shareUrl + '?uk=' + user.shareKey;
 
+        console.log("setJSAPI() shareUrl=" + shareUrl);
+
         var option = {
             title: '浓情端午，粽享好礼',
             desc: '邀请4个好友助力收集粽子，集齐全部粽子即可拆开礼盒',
@@ -21,10 +23,15 @@ $(function () {
         let url = 'https://wxspapi.totemtec.com/authorizer/jsconfig?url='
                 + encodeURIComponent(location.href.split('#')[0]) + '&appId=' + authorizerAppId;
 
+        console.log("setJSAPI() url=" + url);
+
         $.getJSON( url, function (res) {
+
+            console.log("setJSAPI() res=" + res);
+
             wx.config({
                 beta: true,
-                debug: false,
+                debug: true,
                 appId: res.data.appId,
                 timestamp: res.data.timestamp,
                 nonceStr: res.data.nonceStr,
@@ -35,6 +42,7 @@ $(function () {
                 ]
             });
             wx.ready(function () {
+                console.log("setJSAPI() wx.ready()");
                 wx.onMenuShareTimeline(option);
                 wx.onMenuShareAppMessage(option);
             });
@@ -48,30 +56,38 @@ $(function () {
             url = url + '&uk='+shareKey;
         }
 
+        console.log("login() url=" + url);
+
         $.getJSON( url, function (res) {
             if (res.code == 1) {
-                localStorage.setItem('token', res.token);
-                setUser(res.data);
 
-                $.ajaxSetup({
-                    headers: { "Authorization": res.token }
-                });
+                setToken(res.token);
 
-                let user = res.data;
-                let shareUser = res.shareUser;
-                showInfo(user, shareUser, shareKey);
-                setJSAPI(res.data);
+                setUser(res.user);
+
+                let user = res.user;
+                setJSAPI(user);
+
+                if (zongziPage) {
+                    let shareUser = res.shareUser;
+                    console.log("login() shareUser=" + shareUser);
+                    if (shareUser) {
+                        showShareUserInfo(shareUser);
+                    } else {
+                        showUserInfo(user);
+                    }
+                }
             }
         });
     }
 
     function init(){
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
-        const state = urlParams.get('state');
-        const appid = urlParams.get('appid');
-        shareKey = urlParams.get('uk');
+        const code = getQueryString('code');
+        const state = getQueryString('state');
+        const appid = getQueryString('appid');
+        shareKey = getQueryString('uk');
+        console.log("code=" + code + ", state=" + state + ", appid=" + appid + ", shareKey=" + shareKey);
         
         if (state && !code) {
             //用户禁止授权，弹框提示，我们是静默授权，不会发生这种情形
@@ -84,23 +100,29 @@ $(function () {
             login(appid, code);
 
         } else {
-            let token = localStorage.getItem("token");
+            let token = getToken();
+
+            console.log("token=" + token);
+
             // 已授权登录
             if (token) {
 
-                $.ajaxSetup({
-                    headers: { "Authorization": token }
-                });
-
                 let user = getUser();
+
+                console.log("user=" + user);
+
+                //没有shareKey，或者shareKey就是本用户自己的，显示用户自己的信息
                 if (user && (!shareKey || user.shareKey == shareKey)) {
-                    showInfo(user, null, shareKey);
+                    if (zongziPage) {
+                        showUserInfo(user);
+                    }
                 }
 
                 setJSAPI(user);
 
-                getUserInfo(shareKey);
+                refreshUserInfo(shareKey);
             } else {
+                console.log("goto oauth2/authorize");
                 //去授权
                 let url = window.location.href
                 let redirect = encodeURI(url);

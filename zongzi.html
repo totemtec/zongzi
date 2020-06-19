@@ -13,6 +13,12 @@
 	<meta content="email=no" name="format-detection" />
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="js/vconsole.min.js"></script>
+	<script>
+		// 初始化
+		var vConsole = new VConsole();
+	</script>
+
 	<link rel="stylesheet" href="css/m_main.css" />
 	<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.0/weui.min.css" />
 
@@ -86,37 +92,37 @@
 <!--未获得奖品弹窗结束-->
 	<section class="contentbox jzzbox">
 		<div class="headbox">
-			<span><img src="images/tx.jpg"/></span>
-			<p>昵称</p>
+			<span><img src="images/tx.jpg" id="avatar"/></span>
+			<p id="nickname">昵称</p>
 		</div>
-		<div class="mygift" id="mygift">
+		<div class="mygift" id="mygift" style="display: none;">
 			<a href="mygift.html">我的礼品</a>
 		</div>
 		<h2 class="titlesp" id="titleTips">全部集齐可以领取礼包</h2>
 		<div class="giftpt"><img src="images/lwpt.png"/></div>
 		<div class="zzbox">
-			<span class="cfz">财富粽</span>
-			<span class="jkz">健康粽</span>
-			<span class="xfz">幸福粽</span>
-			<span class="syz">事业粽</span>
+			<span class="cfz" id="zongzi0">财富粽</span>
+			<span class="jkz" id="zongzi1">健康粽</span>
+			<span class="xfz" id="zongzi2">幸福粽</span>
+			<span class="syz" id="zongzi3">事业粽</span>
 		</div>
 		<div class="fridebox">
 			<ul>
-				<li>
-					<span><img src="images/tx1.jpg"/></span>
-					<p>另泣鬼神</p>
+				<li style="display: none;" id="user0">
+					<span><img src="images/tx1.jpg" id="avatar0"></span>
+					<p id="nickname0"></p>
 				</li>
-				<li style="display: none;">
-					<span><img src="images/notx.jpg"/></span>
-					<p>???????</p>
+				<li style="display: none;" id="likeUser1">
+					<span><img src="images/notx.jpg" id="avatar1"/></span>
+					<p id="nickname1"></p>
 				</li>
-				<li style="display: none;">
-					<span><img src="images/notx.jpg"/></span>
-					<p>???????</p>
+				<li style="display: none;" id="likeUser2">
+					<span><img src="images/notx.jpg" id="avatar2"/></span>
+					<p id="nickname2"></p>
 				</li>
-				<li style="display: none;">
-					<span><img src="images/notx.jpg"/></span>
-					<p>???????</p>
+				<li style="display: none;" id="likeUser3">
+					<span><img src="images/notx.jpg" id="avatar3"/></span>
+					<p id="nickname3"></p>
 				</li>
 			</ul>
 		</div>
@@ -149,9 +155,8 @@
 		//关闭公众号弹窗
 		$(".gzgzhbox .closebtn").click(function(){
 
-			const urlParams = new URLSearchParams(window.location.search);
-        	shareKey = urlParams.get('uk');
-			getUserInfo(shareKey);
+			shareKey = getQueryString('uk');
+			refreshUserInfo(shareKey);
 
 			$(".gzgzhbox").fadeOut();
 			$("#mask1").fadeOut();
@@ -182,10 +187,9 @@
 				return;
 			}
 
-			const urlParams = new URLSearchParams(window.location.search);
-        	shareKey = urlParams.get('uk');
+			shareKey = getQueryString('uk');
 		
-			likeFriend(shareKey);
+			likeShareUser(shareKey);
 		});
 
 		$("#duplacatedLike closebtn").click(function(){
@@ -248,63 +252,87 @@
 
 const zongziPage = true;
 
-function showZongzi(count) {
-	if (count > 0) {
-		$('.cfz').addClass('active');
+function showGameData(user) {
+	$('#avatar').attr("src", user.avatar);
+	$('#nickname').text(user.nickName);
+
+	let likeList = user.likeList;
+	if (likeList.length > 0) {
+		let user0 = likeList[0];
+		$('#zongzi0').addClass('active');
+		$('#user0').css('display','block');
+		$('#avatar0').attr("src", user0.avatar);
+		$('#nickname0').text(user0.nickName)
 	}
 
-	if (count > 1) {
-		$('.jkz').addClass('active');
+	if (likeList.length > 1) {
+		let user1 = likeList[1];
+		$('#zongzi1').addClass('active');
+		$('#user1').css('display','block');
+		$('#avatar1').attr("src", user1.avatar);
+		$('#nickname1').text(user1.nickName)
 	}
 
-	if (count > 2) {
-		$('.xfz').addClass('active');
+	if (likeList.length > 2) {
+		let user1 = likeList[1];
+		$('#zongzi2').addClass('active');
+		$('#user2').css('display','block');
+		$('#avatar2').attr("src", user2.avatar);
+		$('#nickname2').text(user2.nickName)
 	}
 
-	if (count > 3) {
-		$('.syz').addClass('active');
+	if (likeList.length > 3) {
+		let user3 = likeList[3];
+		$('#zongzi3').addClass('active');
+		$('#user3').css('display','block');
+		$('#avatar3').attr("src", user3.avatar);
+		$('#nickname3').text(user3.nickName)
 	}
 }
 
-function showDuplicatedLikeMessage()
-{
-	$('#duplacatedLike').fadeIn();
-	$('#mask1').fadeIn();
-}
+function showUserInfo(user) {
+	$("#like").css('display','none');
+	$("#titleTips").text('全部集齐可以领取礼包');
 
-function showInfoOnPage(user, shareUser, shareKey, likeSuccess) {
-	let likeCount = 0;
-
-	if(likeSuccess) {
-		$('#likeSuccess').fadeIn();
-		$('#mask1').fadeIn();
-	} 
-
-	//展示朋友信息
-	if (shareUser && shareKey) {
-		likeCount = shareUser.likeCount;
-		$("#like").css('display','block');
-		$("#play").css('display','none'); 
-		$("#gift").css('display','none'); 
+	if (user.likeCount >= 4) {
+		$("#play").css('display','none');
+		$("#gift").css('display','block');
+		$("#mygift").css('display','block');
 	} else {
-		//展示自己信息
-		likeCount = user.likeCount;
-
-		$("#like").css('display','none');
-
-		if (likeCount >= 4) {
-			$("#play").css('display','none');
-			$("#gift").css('display','block');
-		} else {
-			$("#play").css('display','block');
-			$("#gift").css('display','none');
-		}
-		
+		$("#play").css('display','block');
+		$("#gift").css('display','none');
+		$("#mygift").css('display','none');
 	}
-	
-	showZongzi(likeCount);
+
+	showGameData(user);
 }
 
+function showShareUserInfo(shareUser) {
+
+	$("#like").css('display','block');
+	$("#play").css('display','none'); 
+	$("#gift").css('display','none'); 
+	$("#mygift").css('display','none');
+	$("#titleTips").text('邀您助力集粽子领礼品');
+
+	showGameData(shareUser);
+}
+
+function showLikeSuccess(shareUser) {
+	$('#likeSuccess').fadeIn();
+	$('#mask1').fadeIn();
+
+	showShareUserInfo(shareUser);
+}
+
+function showLikeFailure(res) {
+	if (res.code == 1018) {
+		$('#duplacatedLike').fadeIn();
+	    $('#mask1').fadeIn();
+	} else {
+		alert(res.message);
+	}
+}
 
    
 </script>
