@@ -85,10 +85,10 @@
 	</div>
 <!--未获得奖品弹窗结束-->
 	<section class="contentbox jzzbox">
-		<div class="mygift">
+		<div class="mygift" id="mygift">
 			<a href="mygift.html">我的礼品</a>
 		</div>
-		<h2 class="titlesp">全部集齐可以领取礼包</h2>
+		<h2 class="titlesp" id="titleTips">全部集齐可以领取礼包</h2>
 		<div class="giftpt"><img src="images/lwpt.png"/></div>
 		<div class="zzbox">
 			<span class="cfz">财富粽</span>
@@ -124,9 +124,15 @@
 
 		//关闭公众号弹窗
 		$(".gzgzhbox .closebtn").click(function(){
+
+			const urlParams = new URLSearchParams(window.location.search);
+        	shareKey = urlParams.get('uk');
+			getUserInfo(shareKey);
+
 			$(".gzgzhbox").fadeOut();
 			$("#mask1").fadeOut();
 		})
+
 		//关闭弹窗
 		$(".collectcg .closebtn").click(function(){
 			$(".collectcg").fadeOut();
@@ -145,7 +151,12 @@
 		});
 
 		$("#like").click(function(){
-			alert('助力成功');
+			let user  = getUser();
+			if (user==null || user.subscribe == 0) {
+				$(".gzgzhbox").fadeIn();
+				$("#mask1").fadeIn();
+				return;
+			}
 
 			const urlParams = new URLSearchParams(window.location.search);
         	shareKey = urlParams.get('uk');

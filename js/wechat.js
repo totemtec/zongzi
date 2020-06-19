@@ -2,8 +2,8 @@ var shareKey = null;
 
 $(function () {
     
-    let authorizerAppId = 'wx1bc322412db3080c';
     let componentAppId = 'wxfbd30d57a71d760e';
+    let authorizerAppId = 'wxf0d209a185bb9082';
         
     function setJSAPI(user){
 
@@ -13,7 +13,7 @@ $(function () {
 
         var option = {
             title: '浓情端午，粽享好礼',
-            desc: '浓情端午，粽享好礼！邀请4个好友助力收集粽子，集齐全部粽子即可拆开礼盒',
+            desc: '邀请4个好友助力收集粽子，集齐全部粽子即可拆开礼盒',
             link: shareUrl,
             imgUrl: 'https://wxsp.totemtec.com/images/shengjinglogo.png'
         };
