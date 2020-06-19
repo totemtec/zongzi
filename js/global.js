@@ -42,8 +42,10 @@ function likeFriend(shareKey){
             let shareUser = res.shareUser;
 
             showInfo(user, shareUser, shareKey, true);
-        } else if (res.code > 1000) {
-            alert(res.message);
+        } else if (res.code == 1018) {
+            if (zongziPage) {
+                showDuplicatedLikeMessage();
+            }
         }
     });
 }

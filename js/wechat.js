@@ -53,6 +53,10 @@ $(function () {
                 localStorage.setItem('token', res.token);
                 setUser(res.data);
 
+                $.ajaxSetup({
+                    headers: { "Authorization": res.token }
+                });
+
                 let user = res.data;
                 let shareUser = res.shareUser;
                 showInfo(user, shareUser, shareKey);

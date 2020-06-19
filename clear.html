@@ -21,24 +21,10 @@
         </style>
     </head>
     <body>
-        <div class="btn get-localstorage">Get</div>
-        <div class="btn set-localstorage">Set</div>
-        <div class="btn remove-localstorage">Remove</div>
-        <div class="btn clear-localstorage">Clear</div>
+        <div class="btn clear-localstorage">清空本地缓存</div>
         <div class="test"></div>
         <script>
-            $('.get-localstorage').on('click', function() {
-                let testData = localStorage.getItem('testData')
-                $('.test').html(testData)
-            })
-            $('.set-localstorage').on('click', function() {
-                localStorage.setItem('testData', '这是数据')
-                $('.test').html('写入成功')
-            })
-            $('.remove-localstorage').on('click', function() {
-                localStorage.removeItem('testData')
-                $('.test').html('移除成功')
-            })
+           
             $('.clear-localstorage').on('click', function() {
                 localStorage.clear()
                 localStorage.removeItem('token')
