@@ -14,10 +14,8 @@ function setJSAPI(user){
     if (user && user.subscribe && user.shareKey) {
         shareUrl = shareUrl.split(/[?#]/)[0];
         shareUrl = shareUrl + '?uk=' + user.shareKey;
-        wx.showOptionMenu();
     } else {
         console.log("未关注用户，分享无效");
-        wx.hideOptionMenu();
     }
 
     console.log("setJSAPI() shareUrl=" + shareUrl);
@@ -59,7 +57,6 @@ function setJSAPI(user){
                 wx.onMenuShareTimeline(option);
                 wx.onMenuShareAppMessage(option);
 
-                wx.showOptionMenu();
             } else {
 
 // 发送给朋友: "menuItem:share:appMessage"
@@ -150,8 +147,6 @@ $(function () {
                         showUserInfo(user);
                     }
                 }
-
-                setJSAPI(user);
 
                 refreshUserInfo(shareKey);
             } else {
