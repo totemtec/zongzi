@@ -69,6 +69,8 @@ function refreshUserInfo(shareKey){
         if (res.code == 1) {
             setUser(res.user);
 
+            setJSAPI(res.user);
+
             if(res.shareUser) {
                 showShareUser(res.shareUser);
             } else {
