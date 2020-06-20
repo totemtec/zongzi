@@ -12,22 +12,82 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="no" />
 	<meta content="email=no" name="format-detection" />
 	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/m_main.css" />
+	<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.0/weui.min.css" />
+	<script src="js/vconsole.min.js"></script>
+	<script>
+		// 初始化
+		var vConsole = new VConsole();
+	</script>
+
 </head>
 <body>
 	<section class="contentbox">
 		<div class="giftbox">
 			<span class="ycone"><img src="images/ptyc.png"/></span>
 			<span class="yctwo"><img src="images/ptyc.png"/></span>
-			<div class="jplogo"><img src="images/jpsp.png"/></div>
+			<div class="jplogo"><img alt="奖品图片" src="images/zz1.png" id="giftImage"/></div>
 			<div class="giftmsg">
 				<h4>我的奖品</h4>
-				<h2>奖品名称：<span>腾讯视频会员月卡</span> </h2>
-				<h2>奖品说明：获得视频会员激活码/券码，您可<b>前往以下两个渠道激活使用——</b></h2>
-				<p>（1）官网激活：打开腾讯官网（https://v.qq.com）→登录账号→点击头像进入→VIP会员→+兑换VIP会员→输入激活码/券码→输入手机号、验证码→点击立即验证，完成兑换；</p>
-				<p>（2）APP激活：打开腾讯视频APP→登录账号→点击个人中心→VIP会员→其他会员开通方式→兑换VIP/优惠码→输入激活码/券码→输入手机号、验证码→点击立即验证，完成兑换。</p>
+				<h2>奖品名称：<span id="packageName"></span> </h2>
+				<h2 style="display: none;" id="giftCode">激活码：<span id="giftCodeText"></span> </h2>
+				<h2 style="display: none;" id="contact">收件人：<span id="contactText"></span> </h2>
+				<h2 style="display: none;" id="address">收件地址：<span id="addressText"></span> </h2>
 			</div>
 		</div>
+		<a class="lqgiftbtn" id="addAddress" href="address.html" style="margin-bottom: 20px; display: none;">填写收件地址</a>
 	</section>
+
+	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+	<script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+
+	<script type="text/javascript" src="js/global.js"></script>
+
+	<script>
+
+	function getUserGift() {
+
+		let url = 'https://wxspapi.totemtec.com/user/gift';
+
+
+		getToken();
+
+		$.getJSON(url, function (res) {
+
+			console.log("getUserGift() response=" + JSON.stringify(res));
+
+			if (res.code == 1) {
+				let gift = res.data;
+				let giftPackage = gift.giftPackage;
+				$('#giftImage').attr("src", giftPackage.image)
+				if (giftPackage.type == 1) {
+					$('#giftCode').css('display', 'block');
+					$('#giftCodeText').text(gift.giftCode);
+				} else if(giftPackage.type == 2) {
+					if (gift.status == 10) {
+						$('#addAddress').css('display', 'block');
+					} else if(gift.status >= 20) {
+						$('#contact').css('display', 'block');
+						$('#address').css('display', 'block');
+						$('#contactText').text(gift.contact + '  ' + gift.phone);
+						if(gift.province == gift.city) {
+							gift.province = '';
+						}
+						$('#addressText').text(gift.province + gift.city + gift.district + gift.address);
+					}
+				}
+
+				$('#packageName').text(giftPackage.name);
+				$('.giftmsg').append(giftPackage.desc);
+				
+			}
+		});
+	}
+
+	getUserGift();
+	
+	</script>
+
 </body>
 </html>

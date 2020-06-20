@@ -42,16 +42,16 @@
 	</div>
 <!--收集一枚粽子弹窗结束-->
 <!--中奖了弹窗开始-->
-	<div class="collectcg" style="display:none;">
+	<div class="collectcg" style="display:none;" id="giftGoods">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_zj.png"/>
-			<a class="linkbtn">填写联系地址</a>
+			<a class="linkbtn" href="address.html">填写联系地址</a>
 		</div>
 	</div>
 <!--中奖了弹窗结束-->
 <!--中奖了视频会员卡弹窗开始-->
-	<div class="collectcg" style="display:none;">
+	<div class="collectcg" style="display:none;" id="giftCode">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_sphyk.png"/>
@@ -93,28 +93,28 @@
 		<h2 class="titlesp" id="titleTips">全部集齐可以领取礼包</h2>
 		<div class="giftpt"><img src="images/lwpt.png"/></div>
 		<div class="zzbox">
-			<span class="cfz">财富粽</span>
-			<span class="jkz">健康粽</span>
-			<span class="xfz">幸福粽</span>
-			<span class="syz">事业粽</span>
+			<span class="cfz" id="zongzi0">财富粽</span>
+			<span class="jkz" id="zongzi1">健康粽</span>
+			<span class="xfz" id="zongzi2">幸福粽</span>
+			<span class="syz" id="zongzi3">事业粽</span>
 		</div>
 		<div class="fridebox">
 			<ul>
-				<li>
-					<span><img src="images/tx1.jpg"/></span>
-					<p>另泣鬼神</p>
+				<li style="display: none;" id="user0">
+					<span><img src="images/zz1.png" id="avatar0"/></span>
+					<p class="userNickName" id="nickName0">好友昵称</p>
 				</li>
 				<li style="display: none;" id="user1">
-					<span><img src="images/notx.jpg" id="avatar1"/></span>
-					<p id="nickname1"></p>
+					<span><img src="images/zz1.png" id="avatar1"/></span>
+					<p class="userNickName" id="nickname1"></p>
 				</li>
 				<li style="display: none;" id="user2">
-					<span><img src="images/notx.jpg" id="avatar2"/></span>
-					<p id="nickname2"></p>
+					<span><img src="images/zz1.png" id="avatar2"/></span>
+					<p class="userNickName" id="nickname2"></p>
 				</li>
 				<li style="display: none;" id="user3">
-					<span><img src="images/notx.jpg" id="avatar3"/></span>
-					<p id="nickname3"></p>
+					<span><img src="images/zz1.png" id="avatar3"/></span>
+					<p class="userNickName" id="nickname3"></p>
 				</li>
 			</ul>
 		</div>
@@ -301,7 +301,7 @@ function showUserInfo(user) {
 		$("#play").css('display','none');
 		$("#gift").css('display','block');
 		$("#mygift").css('display','block');
-		$("#statusTips").text("恭喜您已成功完成任务！");
+		$("#statusTips").text("恭喜您集齐了4个粽子，可以领取礼品啦");
 	} else {
 		$("#play").css('display','block');
 		$("#gift").css('display','none');
@@ -320,8 +320,8 @@ function showShareUserInfo(shareUser) {
 	$("#titleTips").text('邀您助力集粽子领礼品');
 
 	let likeCount = shareUser.likeList.length;
-	if (likeList >= 4) {
-		$("#statusTips").text("您的好友已集齐4个粽子！");
+	if (likeCount >= 4) {
+		$("#statusTips").text("您的好友集齐了4个粽子！可以领取礼品啦");
 		$("#wantPlay").css('display','block');
 	} else {
 		let remain = 4 - likeCount;

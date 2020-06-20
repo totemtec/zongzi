@@ -74,10 +74,10 @@
 			}, false);
 			self._createPicker();
 			//防止滚动穿透
-			self.panel.addEventListener('touchstart', function(event) {
+			self.panel.addEventListener($.EVENT_START, function(event) {
 				event.preventDefault();
 			}, false);
-			self.panel.addEventListener('touchmove', function(event) {
+			self.panel.addEventListener($.EVENT_MOVE, function(event) {
 				event.preventDefault();
 			}, false);
 		},
@@ -112,9 +112,11 @@
 		getSelectedItems: function() {
 			var self = this;
 			var items = [];
-			for (var i in self.pickers) {
-				var picker = self.pickers[i];
-				items.push(picker.getSelectedItem() || {});
+			for (var i in self.pickers) {    
+				if(self.pickers.hasOwnProperty(i)) { // 修复for in会访问继承属性造成items报错情况
+					var picker = self.pickers[i];
+					items.push(picker.getSelectedItem() || {});
+				}
 			}
 			return items;
 		},

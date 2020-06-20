@@ -16,6 +16,16 @@
 	<link href="css/mui.picker.css" rel="stylesheet" />
 	<link href="css/mui.poppicker.css" rel="stylesheet" />
 	<link rel="stylesheet" href="css/m_main.css" />
+
+	<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.0/weui.min.css" />
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="js/vconsole.min.js"></script>
+	<script>
+		// 初始化
+		var vConsole = new VConsole();
+	</script>
+
 </head>
 <body>
 	<section class="contentbox">
@@ -25,44 +35,139 @@
 			<h4>填写联系地址</h4>
 			<p>
 				<span>收件人</span>
-				<input type="text" placeholder="请填写收货人姓名"/>
+				<input type="text" id="contact" placeholder="请填写收件人姓名"/>
 			</p>
 			<p>
 				<span>手机号</span>
-				<input type="text" placeholder="请填写收货人手机号"/>
+				<input type="text" id="phone" placeholder="请填写收件人手机号"/>
 			</p>
 			<p>
 				<span>所在地区</span>
-				<input type="text" placeholder="省市区县、乡镇" id='showCityPicker'/>
+				<input type="text" placeholder="省市区县" id='showCityPicker'/>
 			</p>
 			<p>
 				<span>详细地址</span>
-				<input type="text" placeholder="街道、楼牌号"/>
+				<input type="text" id="address" placeholder="街道、楼牌号"/>
 			</p>
-			<a class="subbtn">提 交</a>
+			<input type="hidden" id="province"/>
+			<input type="hidden" id="city"/>
+			<input type="hidden" id="district"/>
+			<a class="subbtn" id="submitAddress">提 交</a>
 		</div>
 	</section>
+
+	<div id="toast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">提交成功</p>
+        </div>
+	</div>
+	
 	<script src="js/mui.min.js"></script>
 	<script src="js/mui.picker.js"></script>
 	<script src="js/mui.poppicker.js"></script>
-	<script src="js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 		(function($, doc) {
 			$.init();
 			$.ready(function() {
 				var cityPicker = new $.PopPicker({
-					layer: 2
+					layer: 3
 				});
-				cityPicker.setData(cityData);
+				cityPicker.setData(cityData3);
 				var showCityPickerButton = doc.getElementById('showCityPicker');
 				var cityResult = doc.getElementById('showCityPicker');
+				var provinceInput = doc.getElementById('province');
+				var cityInput = doc.getElementById('city');
+				var districtInput = doc.getElementById('district');
 				showCityPickerButton.addEventListener('tap', function(event) {
 					cityPicker.show(function(items) {
-						cityResult.value = items[0].text + " " + items[1].text;
+						cityResult.value = items[0].text + " " + items[1].text + " " + items[2].text;
+						provinceInput.value = items[0].text;
+						cityInput.value = items[1].text;
+						districtInput.value = items[2].text;
 					});
 				}, false);				
 			});
 		})(mui, document);
 	</script>
+
+<script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
+
+<script>
+
+	document.querySelector("#submitAddress").addEventListener("click", function (event) {
+		event.preventDefault();
+		postUserGiftAddress();
+	}, false);
+
+	function showToast() {
+		var $toast = $('#toast');
+        
+		if ($toast.css('display') != 'none') return;
+
+		$toast.fadeIn(100);
+		setTimeout(function () {
+			window.location.assign('https://wxsp.totemtec.com/mygift.html');
+		}, 2000);
+	}
+
+	function postUserGiftAddress() {
+
+		var contact = $('#contact').val();
+		if (contact.length < 3) {
+			alert("请输入正确的收件人姓名");
+			return;
+		}
+
+		var phone = $('#phone').val();
+		if (phone.length < 11) {
+			alert("请输入正确的手机号码");
+			return;
+		}
+
+		var province = $('#province').val();
+		var city = $('#city').val();
+		var district = $('#district').val();
+
+		if (province.length + city.length + district.length < 5) {
+			alert("请输入您所在省市");
+			return;
+		}
+
+		var address = $('#address').val();
+		if (address.length < 3) {
+			alert("请输入详细地址");
+			return;
+		}
+
+		let url = 'https://wxspapi.totemtec.com/user/gift/address';
+
+		getToken();
+
+		let param = {
+			"contact": contact,
+			"phone": phone,
+			"province": province,
+			"city": city,
+			"district": district,
+			"address": address
+		};
+
+		$.post(url, param, function (res) {
+
+			console.log("postUserGiftAddress() param = " + JSON.stringify(param));
+
+			if (res.code == 1) {
+				showToast();
+			} else if (res.code > 1000) {
+				alert(res.message);
+			}
+		});
+	}
+
+</script>
 </body>
 </html>
