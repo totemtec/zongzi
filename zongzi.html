@@ -13,15 +13,7 @@
 	<meta content="email=no" name="format-detection" />
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script src="js/vconsole.min.js"></script>
-	<script>
-		// 初始化
-		var vConsole = new VConsole();
-	</script>
-
 	<link rel="stylesheet" href="css/m_main.css" />
-	<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.0/weui.min.css" />
-
 </head>
 <body>
 	<div class="mask" id="mask0" style="display:none;"></div>
@@ -41,25 +33,25 @@
 	</div>
 <!--关注公众号结束-->
 <!--收集一枚粽子弹窗开始-->
-	<div class="collectcg" style="display:none;" id="likeSuccess">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
-		<div class="poupbox" id="playGame">
+		<div class="poupbox">
 			<img src="images/tc_sjcg.png"/>
 			<a class="linkbtn">我也要参加</a>
 		</div>
 	</div>
 <!--收集一枚粽子弹窗结束-->
 <!--中奖了弹窗开始-->
-	<div class="collectcg" style="display:none;"  id="giftGoods">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_zj.png"/>
-			<a class="linkbtn" href="address.html">填写联系地址</a>
+			<a class="linkbtn">填写联系地址</a>
 		</div>
 	</div>
 <!--中奖了弹窗结束-->
 <!--中奖了视频会员卡弹窗开始-->
-	<div class="collectcg" style="display:none;" id="giftCode">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_sphyk.png"/>
@@ -67,7 +59,7 @@
 	</div>
 <!--中奖了视频会员卡弹窗结束-->
 <!--重复助力弹窗开始-->
-	<div class="collectcg" style="display:none;" id="duplacatedLike">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_cfzl.png"/>
@@ -75,7 +67,7 @@
 	</div>
 <!--重复助力弹窗结束-->
 <!--未中奖弹窗开始-->
-	<div class="collectcg" style="display:none;" id="giftNone">
+	<div class="collectcg" style="display:none;">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_wzj.png"/>
@@ -95,22 +87,22 @@
 			<span><img src="images/zz1.png" id="avatar"/></span>
 			<p id="nickname">昵称</p>
 		</div>
-		<div class="mygift" id="mygift" style="display: none;">
+		<div class="mygift" id="mygift">
 			<a href="mygift.html">我的礼品</a>
 		</div>
 		<h2 class="titlesp" id="titleTips">全部集齐可以领取礼包</h2>
 		<div class="giftpt"><img src="images/lwpt.png"/></div>
 		<div class="zzbox">
-			<span class="cfz" id="zongzi0">财富粽</span>
-			<span class="jkz" id="zongzi1">健康粽</span>
-			<span class="xfz" id="zongzi2">幸福粽</span>
-			<span class="syz" id="zongzi3">事业粽</span>
+			<span class="cfz">财富粽</span>
+			<span class="jkz">健康粽</span>
+			<span class="xfz">幸福粽</span>
+			<span class="syz">事业粽</span>
 		</div>
 		<div class="fridebox">
 			<ul>
-				<li style="display: none;" id="user0">
-					<span><img src="images/tx1.jpg" id="avatar0"></span>
-					<p id="nickname0"></p>
+				<li>
+					<span><img src="images/tx1.jpg"/></span>
+					<p>另泣鬼神</p>
 				</li>
 				<li style="display: none;" id="user1">
 					<span><img src="images/notx.jpg" id="avatar1"/></span>
