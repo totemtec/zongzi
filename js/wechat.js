@@ -31,7 +31,7 @@ $(function () {
 
             wx.config({
                 beta: true,
-                debug: true,
+                debug: false,
                 appId: res.data.appId,
                 timestamp: res.data.timestamp,
                 nonceStr: res.data.nonceStr,
