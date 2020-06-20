@@ -179,7 +179,11 @@
 			}
 		});
 
-		let wantPlay = function(){
+		$("#wantPlayOnDialog").click(function(){
+			window.location.assign('https://wxsp.totemtec.com/zongzi.html');
+		});
+
+		$("#wantPlay").click(function(){
 			let user  = getUser();
 			if (user && user.subscribe == 0) {
 				$(".gzgzhbox").fadeIn();
@@ -187,10 +191,7 @@
 			} else {
 				window.location.assign('https://wxsp.totemtec.com/zongzi.html');
 			}
-		};
-
-		$("#wantPlayOnDialog").click(wantPlay);
-		$("#wantPlay").click(wantPlay);
+		});
 
 		$("#like").click(function(){
 			let user  = getUser();
