@@ -118,10 +118,11 @@
 				</li>
 			</ul>
 		</div>
-		<h5>邀请4位好友帮忙收集粽子可领取</h5>
+		<h5 id="statusTips">邀请4位好友帮忙收集粽子可领取</h5>
 		<a class="lqgiftbtn" id="play">找好友集粽子</a>
 		<a class="lqgiftbtn" id="gift" style="display: none;">领取礼物</a>
-		<a class="lqgiftbtn" id="like" style="display: none;">帮好友点赞</a>
+		<a class="lqgiftbtn" id="like" style="display: none;">帮好友助力</a>
+		<a class="lqgiftbtn" id="wantPlay" style="display: none;">我也要参与</a>
 		<div class="rulebox bs">
 			<h3>活动规则</h3>
 			<p><span>1、</span>邀请4个好友助力收集粽子，集齐全部粽子即可拆开礼盒。</p>
@@ -168,6 +169,16 @@
 			} else {
 				$(".sharetext").fadeIn();
 				$("#mask0").fadeIn();
+			}
+		});
+
+		$("#wantPlay").click(function(){
+			let user  = getUser();
+			if (user && user.subscribe == 0) {
+				$(".gzgzhbox").fadeIn();
+				$("#mask1").fadeIn();
+			} else {
+				window.location.assign('https://wxsp.totemtec.com/zongzi.html');
 			}
 		});
 
@@ -286,10 +297,11 @@ function showUserInfo(user) {
 	$("#like").css('display','none');
 	$("#titleTips").text('全部集齐可以领取礼包');
 
-	if (user.likeCount >= 4) {
+	if (user.likeList.length >= 4) {
 		$("#play").css('display','none');
 		$("#gift").css('display','block');
 		$("#mygift").css('display','block');
+		$("#statusTips").text("恭喜您已成功完成任务！");
 	} else {
 		$("#play").css('display','block');
 		$("#gift").css('display','none');
@@ -301,11 +313,21 @@ function showUserInfo(user) {
 
 function showShareUserInfo(shareUser) {
 
-	$("#like").css('display','block');
+	
 	$("#play").css('display','none'); 
 	$("#gift").css('display','none'); 
 	$("#mygift").css('display','none');
 	$("#titleTips").text('邀您助力集粽子领礼品');
+
+	let likeCount = shareUser.likeList.length;
+	if (likeList >= 4) {
+		$("#statusTips").text("您的好友已集齐4个粽子！");
+		$("#wantPlay").css('display','block');
+	} else {
+		let remain = 4 - likeCount;
+		$("#statusTips").text("您的好友还差" + remain + "个粽子就能领取礼品");
+		$("#like").css('display','block');
+	}
 
 	showGameData(shareUser);
 }
