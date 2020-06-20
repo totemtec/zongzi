@@ -92,7 +92,7 @@
 <!--未获得奖品弹窗结束-->
 	<section class="contentbox jzzbox">
 		<div class="headbox">
-			<span><img src="images/tx.jpg" id="avatar"/></span>
+			<span><img src="images/zz1.png" id="avatar"/></span>
 			<p id="nickname">昵称</p>
 		</div>
 		<div class="mygift" id="mygift" style="display: none;">
@@ -112,15 +112,15 @@
 					<span><img src="images/tx1.jpg" id="avatar0"></span>
 					<p id="nickname0"></p>
 				</li>
-				<li style="display: none;" id="likeUser1">
+				<li style="display: none;" id="user1">
 					<span><img src="images/notx.jpg" id="avatar1"/></span>
 					<p id="nickname1"></p>
 				</li>
-				<li style="display: none;" id="likeUser2">
+				<li style="display: none;" id="user2">
 					<span><img src="images/notx.jpg" id="avatar2"/></span>
 					<p id="nickname2"></p>
 				</li>
-				<li style="display: none;" id="likeUser3">
+				<li style="display: none;" id="user3">
 					<span><img src="images/notx.jpg" id="avatar3"/></span>
 					<p id="nickname3"></p>
 				</li>
@@ -274,7 +274,7 @@ function showGameData(user) {
 	}
 
 	if (likeList.length > 2) {
-		let user1 = likeList[1];
+		let user2 = likeList[2];
 		$('#zongzi2').addClass('active');
 		$('#user2').css('display','block');
 		$('#avatar2').attr("src", user2.avatar);

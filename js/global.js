@@ -60,7 +60,12 @@ function refreshUserInfo(shareKey){
         url = url + '?uk='+shareKey;
     }
 
+    console.log("refreshUserInfo() url=" + url);
+
     $.getJSON( url, function (res) {
+
+        console.log("refreshUserInfo() response=" + JSON.stringify(res));
+
         if (res.code == 1) {
             setUser(res.user);
 
