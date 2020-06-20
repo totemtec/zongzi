@@ -1,0 +1,37 @@
+@@ -1,36 +0,0 @@
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>localstorage</title>
+        <script>
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + "px";
+        </script>
+        <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+        <style>
+            * {
+                font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", san-serif;
+                font-size: .48rem;
+            }
+            .btn {
+                background: #eee;
+                padding: .2rem;
+                text-align: center;
+                margin: .1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="btn clear-localstorage">清空本地缓存</div>
+        <div class="test"></div>
+        <script>
+           
+            $('.clear-localstorage').on('click', function() {
+                localStorage.clear()
+                localStorage.removeItem('token')
+                localStorage.removeItem('user')
+                $('.test').html('清空成功')
+            })
+        </script>
+    </body>
+</html>

@@ -55,9 +55,10 @@ function getUser() {
 
 function refreshUserInfo(shareKey){
 
-    let url = 'https://wxspapi.totemtec.com/user/info';
+    let shareUrl = encodeURIComponent(location.href.split('#')[0]);
+    let url = 'https://wxspapi.totemtec.com/user/info?shareUrl=' + shareUrl;
     if (shareKey) {
-        url = url + '?uk='+shareKey;
+        url = url + '&uk='+shareKey;
     }
 
     console.log("refreshUserInfo() url=" + url);
@@ -67,9 +68,10 @@ function refreshUserInfo(shareKey){
         console.log("refreshUserInfo() response=" + JSON.stringify(res));
         
         if (res.code == 1) {
-            setUser(res.user);
+            let user = res.user;
+            setUser(user);
 
-            setJSAPI(res.user);
+            setJSAPI(user, res.jsApiConfig);
 
             if(res.shareUser) {
                 showShareUser(res.shareUser);

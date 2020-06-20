@@ -2,12 +2,14 @@ var shareKey = null;
 
 let componentAppId = 'wxfbd30d57a71d760e';
 //图腾泰科
-let authorizerAppId = 'wx1bc322412db3080c';
+// let authorizerAppId = 'wx1bc322412db3080c';
 
-//盛京银行
-// let authorizerAppId = 'wxf0d209a185bb9082';
+// 盛京银行
+let authorizerAppId = 'wxf0d209a185bb9082';
 
-function setJSAPI(user){
+function setJSAPI(user, jsApiConfig){
+
+    console.log("jsApiConfig shareUrl=" + jsApiConfig.shareUrl);
 
     let shareUrl = window.location.href;
 
@@ -18,7 +20,7 @@ function setJSAPI(user){
         console.log("未关注用户，分享无效");
     }
 
-    console.log("setJSAPI() shareUrl=" + shareUrl);
+    console.log("user shareUrl=" + shareUrl);
 
     var option = {
         title: '浓情端午，粽享好礼',
@@ -27,37 +29,28 @@ function setJSAPI(user){
         imgUrl: 'https://wxsp.totemtec.com/images/shengjinglogo.png'
     };
 
-    let url = 'https://wxspapi.totemtec.com/authorizer/jsconfig?url='
-            + encodeURIComponent(location.href.split('#')[0]) + '&appId=' + authorizerAppId;
+    wx.config({
+        beta: false,
+        debug: false,
+        appId: jsApiConfig.appId,
+        timestamp: jsApiConfig.timestamp,
+        nonceStr: jsApiConfig.nonceStr,
+        signature: jsApiConfig.signature,
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage'
+        ]
+    });
+    wx.ready(function () {
+        console.log("setJSAPI() wx.ready()");
+        if (user && user.subscribe && user.shareKey) {
 
-    console.log("setJSAPI() url=" + url);
+            wx.showOptionMenu();
 
-    $.getJSON( url, function (res) {
+            wx.onMenuShareTimeline(option);
+            wx.onMenuShareAppMessage(option);
 
-        console.log("setJSAPI() res=" + res);
-
-        wx.config({
-            beta: false,
-            debug: true,
-            appId: res.data.appId,
-            timestamp: res.data.timestamp,
-            nonceStr: res.data.nonceStr,
-            signature: res.data.signature,
-            jsApiList: [
-                'onMenuShareTimeline',
-                'onMenuShareAppMessage'
-            ]
-        });
-        wx.ready(function () {
-            console.log("setJSAPI() wx.ready()");
-            if (user && user.subscribe && user.shareKey) {
-
-                wx.showOptionMenu();
-
-                wx.onMenuShareTimeline(option);
-                wx.onMenuShareAppMessage(option);
-
-            } else {
+        } else {
 
 // 发送给朋友: "menuItem:share:appMessage"
 // 分享到朋友圈: "menuItem:share:timeline"
@@ -66,19 +59,19 @@ function setJSAPI(user){
 // 收藏: "menuItem:favorite"
 // 分享到FB: "menuItem:share:facebook"
 // 分享到 QQ 空间 "menuItem:share:QZone"
-                // wx.hideMenuItems({
-                //     menuList: []
-                //   });
+            // wx.hideMenuItems({
+            //     menuList: []
+            //   });
 
-                wx.hideOptionMenu();
-            }
-        });
+            wx.hideOptionMenu();
+        }
     });
 }
 
 function login(appid, code){
 
-    let url = 'https://wxspapi.totemtec.com/user/login?code=' + code + '&appid=' + appid;
+    let shareUrl = encodeURIComponent(location.href.split('#')[0]);
+    let url = 'https://wxspapi.totemtec.com/user/login?code=' + code + '&appid=' + appid + "&shareUrl=" + shareUrl;
     if (shareKey) {
         url = url + '&uk='+shareKey;
     }
@@ -94,7 +87,7 @@ function login(appid, code){
 
             let user = res.user;
 
-            setJSAPI(user);
+            setJSAPI(user, res.jsApiConfig);
 
             if (zongziPage) {
                 let shareUser = res.shareUser;

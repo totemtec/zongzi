@@ -40,11 +40,11 @@
 	</div>
 <!--关注公众号结束-->
 <!--收集一枚粽子弹窗开始-->
-	<div class="collectcg" style="display:none;">
+	<div class="collectcg" style="display:none;" id="likeSuccess">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_sjcg.png"/>
-			<a class="linkbtn">我也要参加</a>
+			<a class="linkbtn" id="wantPlayOnDialog">我也要参加</a>
 		</div>
 	</div>
 <!--收集一枚粽子弹窗结束-->
@@ -53,7 +53,7 @@
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_zj.png"/>
-			<a class="linkbtn" href="address.html">填写联系地址</a>
+			<a class="linkbtn" href="address.html" onclick="giftGoodsDismiss()">填写联系地址</a>
 		</div>
 	</div>
 <!--中奖了弹窗结束-->
@@ -66,7 +66,7 @@
 	</div>
 <!--中奖了视频会员卡弹窗结束-->
 <!--重复助力弹窗开始-->
-	<div class="collectcg" style="display:none;">
+	<div class="collectcg" style="display:none;" id="duplacatedLike">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_cfzl.png"/>
@@ -74,7 +74,7 @@
 	</div>
 <!--重复助力弹窗结束-->
 <!--未中奖弹窗开始-->
-	<div class="collectcg" style="display:none;">
+	<div class="collectcg" style="display:none;" id="giftNone">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_wzj.png"/>
@@ -109,7 +109,7 @@
 			<ul>
 				<li style="display: none;" id="user0">
 					<span><img src="images/zz1.png" id="avatar0"/></span>
-					<p class="userNickName" id="nickName0">好友昵称</p>
+					<p class="userNickName" id="nickname0">好友昵称</p>
 				</li>
 				<li style="display: none;" id="user1">
 					<span><img src="images/zz1.png" id="avatar1"/></span>
@@ -179,7 +179,7 @@
 			}
 		});
 
-		$("#wantPlay").click(function(){
+		let wantPlay = function(){
 			let user  = getUser();
 			if (user && user.subscribe == 0) {
 				$(".gzgzhbox").fadeIn();
@@ -187,7 +187,10 @@
 			} else {
 				window.location.assign('https://wxsp.totemtec.com/zongzi.html');
 			}
-		});
+		};
+
+		$("#wantPlayOnDialog").click(wantPlay);
+		$("#wantPlay").click(wantPlay);
 
 		$("#like").click(function(){
 			let user  = getUser();
@@ -245,6 +248,11 @@
 				showGift(res.data);
 			}
 		});
+	}
+
+	function giftGoodsDismiss() {
+		$('#giftGoods').css('display', 'none');
+		$('#mask1').css('display', 'none');
 	}
 
 
@@ -330,6 +338,7 @@ function showShareUserInfo(shareUser) {
 	if (likeCount >= 4) {
 		$("#statusTips").text("您的好友集齐了4个粽子！可以领取礼品啦");
 		$("#wantPlay").css('display','block');
+		$("#like").css('display','none');
 	} else {
 		let remain = 4 - likeCount;
 		$("#statusTips").text("您的好友还差" + remain + "个粽子就能领取礼品");
