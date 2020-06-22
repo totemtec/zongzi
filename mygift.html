@@ -36,10 +36,10 @@
 				<h2 style="display: none;" id="address">收件地址：<span id="addressText"></span> </h2>
 			</div>
 		</div>
-		<a class="lqgiftbtn" id="addAddress" href="address.html" style="margin-bottom: 20px; display: none;">填写收件地址</a>
+		<a class="lqgiftbtn" id="addAddress" href="javascript:gotoAddress();" style="margin-bottom: 20px; display: none;">填写收件地址</a>
 	</section>
 
-	<a href="zongzi.html" style="position: absolute; left: 0; top: 0;">
+	<a style="position: absolute; left: 0; top: 0;" href="javascript:history.go(-1);">
 		<img src="images/back.png" style="width: 6.75rem; height: 4rem;"/>
 	</a>
 
@@ -49,6 +49,10 @@
 	<script type="text/javascript" src="js/global.js"></script>
 
 	<script>
+
+		function gotoAddress() {
+			window.location.replace('address.html');
+		}
 
 	function getUserGift() {
 
