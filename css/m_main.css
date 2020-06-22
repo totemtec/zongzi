@@ -122,8 +122,5 @@ text-align:center;line-height:1.7rem;font-size:0.8rem;color:#fff;position:absolu
 .jzzbox .fridebox ul li span img{width:100%;height:100%;}
 .jzzbox .fridebox ul li p{width:80%;text-align:center;font-size:0.65rem;color:#181C24;padding:0.2rem 10% 0;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;}
 
-.userNickName {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipse;
-}
+.userNickName {overflow: hidden;white-space: nowrap;text-overflow: ellipse;}
+.backbtn{width:4.55rem;height:1.725rem;display:block;background:url(../images/backbtn.png) no-repeat center;background-size:100% auto;text-indent:-999em;position:absolute;left:1.0rem;top:0.5rem;}
