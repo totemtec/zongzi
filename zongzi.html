@@ -238,6 +238,12 @@
 		});
 
 		function showGift(gift) {
+			let user = getUser();
+			if (user) {
+				user.userGift = gift;
+				setUser(user);
+			}
+
 			//未中奖
 			if (gift.status == 0) {
 				$('#giftNone').fadeIn();
@@ -354,6 +360,7 @@ function showUserInfo(user) {
 		$('#mygift').css('display', 'block');
 	} else {
 		$('#mygift').css('display', 'none');
+		console.log("showUserInfo() #mygift display none");
 	}
 
 	if (user.likeList.length >= 4) {
@@ -364,7 +371,6 @@ function showUserInfo(user) {
 	} else {
 		$("#play").css('display','block');
 		$("#gift").css('display','none');
-		$("#mygift").css('display','none');
 	}
 
 	showGameData(user);
@@ -376,6 +382,7 @@ function showShareUserInfo(shareUser) {
 	$("#play").css('display','none'); 
 	$("#gift").css('display','none'); 
 	$("#mygift").css('display','none');
+	console.log("showShareUserInfo() #mygift display none");
 	$("#titleTips").text('邀您助力集粽子领礼品');
 
 	let likeCount = shareUser.likeList.length;

@@ -15,6 +15,7 @@ function setToken(token) {
         localStorage.setItem("token", token);
 
         $.ajaxSetup({
+            cache: false,
             headers: { "Authorization": token }
         });
     }
@@ -25,6 +26,7 @@ function getToken() {
 
     if (token) {
         $.ajaxSetup({
+            cache: false,
             headers: { "Authorization": token }
         });
     }
