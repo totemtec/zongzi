@@ -49,7 +49,7 @@
 	</div>
 <!--收集一枚粽子弹窗结束-->
 <!--中奖了弹窗开始-->
-	<div class="collectcg" style="display:none;" id="giftGoods">
+	<div class="collectcg" style="display:block;" id="giftGoods">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_zj.png"/>
@@ -62,6 +62,7 @@
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_sphyk.png"/>
+			<a class="linkbtn" href="mygift.html" onclick="giftCodeDismiss()">查看激活码</a>
 		</div>
 	</div>
 <!--中奖了视频会员卡弹窗结束-->
@@ -271,7 +272,12 @@
 
 	function giftGoodsDismiss() {
 		$('#giftGoods').css('display', 'none');
-		$('#mask1').css('display', 'none');
+		$('.mask').css('display', 'none');
+	}
+
+	function giftCodeDismiss() {
+		$('#giftCode').css('display', 'none');
+		$('.mask').css('display', 'none');
 	}
 
 
@@ -282,7 +288,7 @@
 
 <script type="text/javascript" src="js/global.js"></script>
 
-<script type="text/javascript" src="js/wechat.js" ></script>
+<!-- <script type="text/javascript" src="js/wechat.js" ></script> -->
 
 
 <script type="text/javascript">
