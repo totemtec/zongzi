@@ -49,7 +49,7 @@
 	</div>
 <!--收集一枚粽子弹窗结束-->
 <!--中奖了弹窗开始-->
-	<div class="collectcg" style="display:block;" id="giftGoods">
+	<div class="collectcg" style="display:none;" id="giftGoods">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_zj.png"/>
@@ -260,6 +260,19 @@
 			}
 		}
 	function gameLucky() {
+
+		let user = getUser();
+		if (user && user.userGift) {
+			if (user.userGift.status == 0) {
+				$('#giftNone').fadeIn();
+				$('.mask').fadeIn();
+			} else {
+				$('#duplicatedGift').fadeIn();
+				$('mask').fadeIn();
+			}
+			
+			return;
+		}
 
 		let url = 'https://wxspapi.totemtec.com/game/lucky';
 
