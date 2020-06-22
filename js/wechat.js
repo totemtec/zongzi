@@ -20,13 +20,18 @@ function setJSAPI(user, jsApiConfig){
         console.log("未关注用户，分享无效");
     }
 
+    let title = '浓情端午，粽享好礼';
+    if (user) {
+        title = user.nickName + '邀您来帮忙！';
+    }
+
     console.log("user shareUrl=" + shareUrl);
 
     var option = {
-        title: '浓情端午，粽享好礼',
-        desc: '邀请4个好友助力收集粽子，集齐全部粽子即可拆开礼盒',
+        title: title,
+        desc: '我正在参与端午节集粽子赢好礼，快来帮我一把！',
         link: shareUrl,
-        imgUrl: 'https://wxsp.totemtec.com/images/shengjinglogo.png'
+        imgUrl: 'https://wxsp.totemtec.com/images/shareIcon.jpg'
     };
 
     wx.config({
