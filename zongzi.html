@@ -94,7 +94,7 @@
 			<span><img src="images/zz1.png" id="avatar"/></span>
 			<p id="nickname">昵称</p>
 		</div>
-		<div class="mygift" id="mygift">
+		<div class="mygift" style="display:none;" id="mygift">
 			<a href="mygift.html">我的礼品</a>
 		</div>
 		<h2 class="titlesp" id="titleTips">全部集齐可以领取礼包</h2>
@@ -228,6 +228,8 @@
 			if (gift.status == 0) {
 				$('#giftNone').fadeIn();
 				$('#mask1').fadeIn();
+			} else if (gift.duplicated) {
+				
 			} else {
 				if (gift.packageType == 1) {
 					//虚拟礼品
@@ -313,10 +315,16 @@ function showUserInfo(user) {
 	$("#like").css('display','none');
 	$("#titleTips").text('全部集齐可以领取礼包');
 
+	if(user.userGift) {
+		$("#mygift").css('display','block');
+	} else {
+		$("#mygift").css('display','none');
+	}
+
 	if (user.likeList.length >= 4) {
 		$("#play").css('display','none');
 		$("#gift").css('display','block');
-		$("#mygift").css('display','block');
+		
 		$("#statusTips").text("恭喜您集齐了4个粽子，可以领取礼品啦");
 	} else {
 		$("#play").css('display','block');
