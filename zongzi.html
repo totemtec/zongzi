@@ -65,11 +65,20 @@
 		</div>
 	</div>
 <!--中奖了视频会员卡弹窗结束-->
+<!--重复领取礼品结束-->
+<div class="collectcg" style="display:none;" id="duplicatedGift">
+	<span class="closebtn">关闭</span>
+	<div class="poupbox">
+		<img src="images/tc_lingguole.png"/>
+	</div>
+</div>
+<!--重复领取礼品结束-->
 <!--重复助力弹窗开始-->
 	<div class="collectcg" style="display:none;" id="duplacatedLike">
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_cfzl.png"/>
+			<a class="linkbtn" id="wantPlayOnDialog2">我也要参加</a>
 		</div>
 	</div>
 <!--重复助力弹窗结束-->
@@ -150,6 +159,7 @@
 		$("#mask0").click(function(){
 			$(".sharetext").fadeOut();
 			$(".mask").fadeOut();
+			$("#duplicatedGift").fadeOut();
 		})
 
 		//关闭公众号弹窗
@@ -165,7 +175,7 @@
 		//关闭弹窗
 		$(".collectcg .closebtn").click(function(){
 			$(".collectcg").fadeOut();
-			$("#mask1").fadeOut();
+			$(".mask").fadeOut();
 		})
 
 		$("#play").click(function(){
@@ -182,6 +192,9 @@
 		$("#wantPlayOnDialog").click(function(){
 			window.location.assign('https://wxsp.totemtec.com/zongzi.html');
 		});
+		$("#wantPlayOnDialog2").click(function(){
+			window.location.assign('https://wxsp.totemtec.com/zongzi.html');
+		});
 
 		$("#wantPlay").click(function(){
 			let user  = getUser();
@@ -194,12 +207,12 @@
 		});
 
 		$("#like").click(function(){
-			let user  = getUser();
-			if (user==null || user.subscribe == 0) {
-				$(".gzgzhbox").fadeIn();
-				$("#mask1").fadeIn();
-				return;
-			}
+			// let user  = getUser();
+			// if (user==null || user.subscribe == 0) {
+			// 	$(".gzgzhbox").fadeIn();
+			// 	$("#mask1").fadeIn();
+			// 	return;
+			// }
 
 			shareKey = getQueryString('uk');
 		
@@ -228,8 +241,9 @@
 			if (gift.status == 0) {
 				$('#giftNone').fadeIn();
 				$('#mask1').fadeIn();
-			} else if (gift.duplicated) {
-				
+			} else if(gift.duplicated) {
+				$('#duplicatedGift').fadeIn();
+				$('#mask0').fadeIn();
 			} else {
 				if (gift.packageType == 1) {
 					//虚拟礼品
