@@ -265,10 +265,10 @@
 		if (user && user.userGift) {
 			if (user.userGift.status == 0) {
 				$('#giftNone').fadeIn();
-				$('.mask').fadeIn();
+				$('#mask1').fadeIn();
 			} else {
 				$('#duplicatedGift').fadeIn();
-				$('mask').fadeIn();
+				$('#mask0').fadeIn();
 			}
 			
 			return;
@@ -351,9 +351,9 @@ function showUserInfo(user) {
 	$("#titleTips").text('全部集齐可以领取礼包');
 
 	if(user.userGift && user.userGift.status > 0) {
-		$("#mygift").css('display','block');
+		$('#mygift').css('display', 'block');
 	} else {
-		$("#mygift").css('display','none');
+		$('#mygift').css('display', 'none');
 	}
 
 	if (user.likeList.length >= 4) {
