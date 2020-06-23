@@ -75,7 +75,7 @@ function setJSAPI(user, jsApiConfig){
 
 function login(appid, code){
 
-    let shareUrl = encodeURIComponent(location.href.split('#')[0]);
+    let shareUrl = encodeURIComponent(location.href.split(/[?#]/)[0]);
     let url = 'https://wxspapi.totemtec.com/user/login?code=' + code + '&appid=' + appid + "&shareUrl=" + shareUrl;
     if (shareKey) {
         url = url + '&uk='+shareKey;

@@ -56,8 +56,14 @@
 		let user = getUser();
 		// user.subscribe = false;
 		if (user && user.subscribe) {
+			let url = 'zongzi.html';
 			shareKey = getQueryString('uk');
-			$("#gotoZongziPage").attr("href","zongzi.html?uk=" + shareKey);
+			if(shareKey) {
+				url = url + "?uk=" + shareKey;
+			} 
+			
+			$("#gotoZongziPage").attr("href", url);
+				
 		} else {
 			event.preventDefault();
 			$(".gzgzhbox").fadeIn();
