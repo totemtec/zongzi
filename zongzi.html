@@ -49,22 +49,24 @@
 	</div>
 <!--收集一枚粽子弹窗结束-->
 <!--中奖了弹窗开始-->
-	<div class="collectcg" style="display:none;" id="giftGoods">
+	<div class="collectcg explainbox" style="display:none;" id="giftGoods" >
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
-			<img src="images/tc_zj.png"/>
+			<img src="images/zjltop.png"/>
+			<div class="msgbox zjlbox">
+				<h4>【奖品说明】</h4>
+				<p>礼盒内含以下产品——</p>
+				<p>娇韵诗双粹焕活修护精华露0.9ml</p>
+				<p>娇韵诗塑颜紧致精华乳5ml</p>
+				<p>娇韵诗沁润奇肌保湿精华液3.5ml</p>
+				<p>娇韵诗清透润白淡斑亮肤精华乳3ml</p>
+				<p>娇韵诗青春赋活日间霜5ml</p>
+				<p>娇韵诗青春赋活晚间霜5ml</p>
+			</div>
 			<a class="linkbtn" href="address.html" onclick="giftGoodsDismiss()">填写联系地址</a>
 		</div>
 	</div>
 <!--中奖了弹窗结束-->
-<!--重复领取礼品结束-->
-<div class="collectcg" style="display:none;" id="duplicatedGift">
-	<span class="closebtn">关闭</span>
-	<div class="poupbox">
-		<img src="images/tc_lingguole.png"/>
-	</div>
-</div>
-<!--重复领取礼品结束-->
 <!--中奖了视频会员卡弹窗开始-->
 	<div class="collectcg" style="display:none;" id="giftCode">
 		<span class="closebtn">关闭</span>
@@ -78,7 +80,6 @@
 		<span class="closebtn">关闭</span>
 		<div class="poupbox">
 			<img src="images/tc_cfzl.png"/>
-			<a class="linkbtn" id="wantPlayOnDialog2">我也要参加</a>
 		</div>
 	</div>
 <!--重复助力弹窗结束-->
@@ -159,7 +160,6 @@
 		$("#mask0").click(function(){
 			$(".sharetext").fadeOut();
 			$(".mask").fadeOut();
-			$("#duplicatedGift").fadeOut();
 		})
 
 		//关闭公众号弹窗
@@ -192,9 +192,6 @@
 		$("#wantPlayOnDialog").click(function(){
 			window.location.assign('https://wxsp.totemtec.com/zongzi.html');
 		});
-		$("#wantPlayOnDialog2").click(function(){
-			window.location.assign('https://wxsp.totemtec.com/zongzi.html');
-		});
 
 		$("#wantPlay").click(function(){
 			let user  = getUser();
@@ -207,12 +204,12 @@
 		});
 
 		$("#like").click(function(){
-			// let user  = getUser();
-			// if (user==null || user.subscribe == 0) {
-			// 	$(".gzgzhbox").fadeIn();
-			// 	$("#mask1").fadeIn();
-			// 	return;
-			// }
+			let user  = getUser();
+			if (user==null || user.subscribe == 0) {
+				$(".gzgzhbox").fadeIn();
+				$("#mask1").fadeIn();
+				return;
+			}
 
 			shareKey = getQueryString('uk');
 		
@@ -241,9 +238,6 @@
 			if (gift.status == 0) {
 				$('#giftNone').fadeIn();
 				$('#mask1').fadeIn();
-			} else if(gift.duplicated) {
-				$('#duplicatedGift').fadeIn();
-				$('#mask0').fadeIn();
 			} else {
 				if (gift.packageType == 1) {
 					//虚拟礼品
@@ -280,7 +274,7 @@
 
 <script type="text/javascript" src="js/global.js"></script>
 
-<!-- <script type="text/javascript" src="js/wechat.js" ></script> -->
+<script type="text/javascript" src="js/wechat.js" ></script>
 
 
 <script type="text/javascript">
