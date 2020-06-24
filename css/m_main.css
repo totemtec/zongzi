@@ -63,7 +63,7 @@ text-align:center;line-height:1.7rem;font-size:0.8rem;color:#fff;position:absolu
 .zzbox .syz.active{background:url(../images/zz4active.png) no-repeat center;background-size:100%;}
 
 .mask{width:100%;height:100%;background:#000;opacity: 0.8;position:fixed;z-index:9;}
-.sharetext{width:100%;position:absolute;z-index:10;top:0.5rem;}
+.sharetext{width:100%;position:fixed;z-index:10;top:0.5rem;}
 .sharetext span{display:block;width:2.125rem;height:3.725rem;background:url(../images/arrow.png) no-repeat center;background-size:100%;right:2.3rem;position:absolute;}
 .sharetext p{width:90%;left:5%;background:#fff;border-radius:0.5rem;padding:1.0rem 1.3rem;position:absolute;z-index:10;top:3.55rem;font-size:0.8rem;color:#393939;line-height:1.425rem;}
 
@@ -124,3 +124,15 @@ text-align:center;line-height:1.7rem;font-size:0.8rem;color:#fff;position:absolu
 
 .userNickName {overflow: hidden;white-space: nowrap;text-overflow: ellipse;}
 .backbtn{width:4.55rem;height:1.725rem;display:block;background:url(../images/backbtn.png) no-repeat center;background-size:100% auto;text-indent:-999em;position:absolute;left:1.0rem;top:0.5rem;}
+
+.contentbox .explainbtn{width:4.6rem;height:1.8rem;display:block;text-indent:-999em;position:absolute;right:0;top:0.7rem;background:url(../images/hdsmbtn.png) no-repeat center;background-size:100% auto;}
+.collectcg.explainbox{width:100%;min-height:21.25rem;margin-top:-12.5rem;margin-left:-50%;height:auto;}
+.collectcg.explainbox .poupbox{width:16.4rem;background:linear-gradient(180deg,rgba(167,241,199,1) 0%,rgba(167,241,199,1) 100%);border-radius:0.75rem;margin:2.1rem auto;overflow:hidden;padding-bottom:1.9rem;}
+.collectcg.explainbox .closebtn{margin-right:1.9rem;}
+.collectcg.explainbox .poupbox img{width:18.2rem;height:auto;margin:0 0 0 -0.8rem;}
+.collectcg.explainbox .poupbox .msgbox{width:74%;margin:0.7rem auto 0;height:13.55rem;overflow:auto;padding-right:1.2rem;}
+.collectcg.explainbox .poupbox .msgbox h4{width:100%;font-size:0.8rem;line-height:1.9rem;font-weight:bolder;}
+.collectcg.explainbox .poupbox .msgbox p{width:100%;font-size:0.75rem;line-height:1.3rem;box-sizing:border-box;padding:0.1rem 0 0.1rem 0.4rem;}
+.collectcg.explainbox .poupbox .msgbox::-webkit-scrollbar {width: 0.35rem;height: 1.0rem;border-radius:0.175rem;}
+.collectcg.explainbox .poupbox .msgbox::-webkit-scrollbar-thumb {border-radius:0.175rem;background:#2B8D29;}
+.collectcg.explainbox .poupbox .msgbox::-webkit-scrollbar-track {background: #fff;border-radius:0.175rem;}
