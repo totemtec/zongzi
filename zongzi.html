@@ -107,7 +107,7 @@
 		<div class="mygift" style="display:none;" id="mygift">
 			<a href="mygift.html">我的礼品</a>
 		</div>
-		<h2 class="titlesp" id="titleTips">全部集齐可以领取礼包</h2>
+		<h2 class="titlesp" id="titleTips">全部集齐可以打开礼包</h2>
 		<div class="giftpt"><img src="images/lwpt.png"/></div>
 		<div class="zzbox">
 			<span class="cfz" id="zongzi0">财富粽</span>
@@ -135,9 +135,9 @@
 				</li>
 			</ul>
 		</div>
-		<h5 id="statusTips">邀请4位好友帮忙收集粽子可领取</h5>
+		<h5 id="statusTips">邀请4位好友帮忙收集粽子就可打开礼包</h5>
 		<a class="lqgiftbtn" id="play">找好友集粽子</a>
-		<a class="lqgiftbtn" id="gift" style="display: none;">领取礼物</a>
+		<a class="lqgiftbtn" id="gift" style="display: none;">打开礼包</a>
 		<a class="lqgiftbtn" id="like" style="display: none;">帮好友助力</a>
 		<a class="lqgiftbtn" id="wantPlay" style="display: none;">我也要参与</a>
 		<div class="rulebox bs">
@@ -354,7 +354,7 @@ function showGameData(user) {
 
 function showUserInfo(user) {
 	$("#like").css('display','none');
-	$("#titleTips").text('全部集齐可以领取礼包');
+	$("#titleTips").text('全部集齐可以打开礼包');
 
 	if(user.userGift && user.userGift.status > 0) {
 		$('#mygift').css('display', 'block');
@@ -367,7 +367,7 @@ function showUserInfo(user) {
 		$("#play").css('display','none');
 		$("#gift").css('display','block');
 		
-		$("#statusTips").text("恭喜您集齐了4个粽子，可以领取礼品啦");
+		$("#statusTips").text("恭喜您集齐了4个粽子，可以打开礼包啦！");
 	} else {
 		$("#play").css('display','block');
 		$("#gift").css('display','none');
@@ -387,12 +387,12 @@ function showShareUserInfo(shareUser) {
 
 	let likeCount = shareUser.likeList.length;
 	if (likeCount >= 4) {
-		$("#statusTips").text("您的好友集齐了4个粽子！可以领取礼品啦");
+		$("#statusTips").text("您的好友集齐了4个粽子！可以打开礼包啦！");
 		$("#wantPlay").css('display','block');
 		$("#like").css('display','none');
 	} else {
 		let remain = 4 - likeCount;
-		$("#statusTips").text("您的好友还差" + remain + "个粽子就能领取礼品");
+		$("#statusTips").text("您的好友还差" + remain + "个粽子就能打开礼包");
 		$("#like").css('display','block');
 	}
 
