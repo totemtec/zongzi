@@ -137,3 +137,5 @@ text-align:center;line-height:1.7rem;font-size:0.8rem;color:#fff;position:absolu
 .collectcg.explainbox .poupbox .msgbox::-webkit-scrollbar-thumb {border-radius:0.175rem;background:#2B8D29;}
 .collectcg.explainbox .poupbox .msgbox::-webkit-scrollbar-track {background: #fff;border-radius:0.175rem;}
 .collectcg.explainbox .poupbox .msgbox.zjlbox{height:14.0rem;position:relative;z-index:3;}
+.collectcg.explainbox .poupbox .jphead{width:3.15rem;height:3.15rem;position:absolute;left:50%;margin-left:-1.575rem;top:0.5rem;border-radius:100%;overflow:hidden;}
+.collectcg.explainbox .poupbox .jphead img{width:100%;height:100%;margin:0;}
