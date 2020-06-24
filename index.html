@@ -16,11 +16,11 @@
 	<link rel="stylesheet" href="css/m_main.css" />
 	<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.0/weui.min.css" />
 
-	<script src="js/vconsole.min.js"></script>
+	<!-- <script src="js/vconsole.min.js"></script>
 	<script>
 		// 初始化
 		var vConsole = new VConsole();
-	</script>
+	</script> -->
 	
 </head>
 <body>
@@ -59,7 +59,7 @@
 		<a class="explainbtn" id="explainShow">活动说明</a>
 		<h2 class="logo"><img src="images/yhlogo.png"/></h2>
 		<div class="ctimg"><img src="images/syztimg.png"/></div>
-		<h4 class="lqbtn"><a href="zongzi.html" id="gotoZongziPage">点击领取</a></h4>
+		<h4 class="lqbtn"><a href="zongzi.html" id="gotoZongziPage">集福粽</a></h4>
 		<div class="btimg"><img src="images/lzimg.png"/></div>
 	</section>
 
@@ -77,6 +77,12 @@
 <script>
 
 	document.querySelector("#gotoZongziPage").addEventListener("click", function (event) {
+
+        //活动未开始的提示
+		// event.preventDefault();
+		// alert("活动还未到开放时间");
+		// return;
+
 		let user = getUser();
 		// user.subscribe = false;
 		if (user && user.subscribe) {
