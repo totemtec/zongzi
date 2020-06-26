@@ -149,7 +149,7 @@
 			</ul>
 		</div>
 		<h5 id="statusTips">邀请4位好友帮忙收集粽子就可打开礼包</h5>
-		<a class="lqgiftbtn" id="play">找好友集粽子</a>
+		<a class="lqgiftbtn" id="play" href="#statusTips">找好友集粽子</a>
 		<a class="lqgiftbtn" id="gift" style="display: none;">打开礼包</a>
 		<a class="lqgiftbtn" id="like" style="display: none;">帮好友助力</a>
 		<a class="lqgiftbtn" id="wantPlay" style="display: none;">我也要参与</a>
@@ -204,9 +204,14 @@
 			if (user && user.subscribe == 0) {
 				$(".gzgzhbox").fadeIn();
 				$("#mask1").fadeIn();
-			} else {
-				$(".sharetext").fadeIn();
-				$("#mask0").fadeIn();
+			} 
+			else {
+				// $(".sharetext").fadeIn();
+				// $("#mask0").fadeIn();
+				var $anchor = $(this);
+				$('html, body').stop().animate({
+					scrollTop: $($anchor.attr('href')).offset().top
+				}, 350);
 			}
 		});
 
