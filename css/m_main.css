@@ -44,7 +44,20 @@ header .textbtn.select{background:url(../images/tyico.png) no-repeat center;back
 .giftpt{width:13.325rem;height:4.425rem;margin:0.75rem auto;}
 .giftpt img{width:100%;height:auto;}
 .contentbox h5{width:100%;padding:0.8rem 0 0.875rem;font-size:0.7rem;color:#164600;text-align:center;font-weight:bolder;}
-.lqgiftbtn{display:block;margin:auto;width:7.325rem;height:1.7rem;border-radius:0.85rem;background:linear-gradient(180deg,rgba(254,241,101,1),rgba(255,145,0,1));box-shadow:0px 0.175rem 0.075rem 0px rgba(17,113,67,0.27);text-align:center;line-height:1.7rem;font-size:0.8rem;color:#fff;}
+.lqgiftbtn{display:block;margin:auto;margin-top:0.7rem;width:7.325rem;height:1.7rem;border-radius:0.85rem;background:linear-gradient(180deg,rgba(254,241,101,1),rgba(255,145,0,1));box-shadow:0px 0.175rem 0.075rem 0px rgba(17,113,67,0.27);text-align:center;line-height:1.7rem;font-size:0.8rem;color:#fff;}
+.lqgift-toast{
+    display:block;
+    margin:auto;
+    margin-top:0.7rem;
+    width:7.325rem;
+    height:1.7rem;
+    border-radius:0.85rem;
+    background:#a2cab8;
+    text-align:center;
+    line-height:1.7rem;
+    font-size:0.8rem;
+    color:#fff;
+}
 .rulebox{width:16.875rem;background:linear-gradient(0deg,rgba(168,228,198,1),rgba(219,251,234,1));border-radius:0.5rem;margin:1.8rem auto 0;padding:1.85rem 1.25rem 1.2rem 0.75rem;position:relative;}
 .rulebox h3{width:7.325rem;height:1.7rem;border-radius:0.85rem;background:linear-gradient(180deg,rgba(82,157,45,1),rgba(130,223,82,1));
 text-align:center;line-height:1.7rem;font-size:0.8rem;color:#fff;position:absolute;left:50%;top:-0.85rem;margin-left:-3.6625rem;}

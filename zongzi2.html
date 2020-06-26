@@ -120,7 +120,7 @@
 		<div class="mygift" style="display:none;" id="mygift">
 			<a href="mygift.html">我的礼品</a>
 		</div>
-		<h2 class="titlesp" id="titleTips">全部集齐可以打开礼包</h2>
+		<h2 class="titlesp" id="titleTips">收集4个粽子，领好礼</h2>
 		<div class="giftpt"><img src="images/lwpt.png"/></div>
 		<div class="zzbox">
 			<span class="cfz" id="zongzi0">财富粽</span>
@@ -148,10 +148,10 @@
 				</li>
 			</ul>
 		</div>
-		<h5 id="statusTips">邀请4位好友帮忙收集粽子就可打开礼包</h5>
-		<a class="lqgiftbtn" id="play" href="#statusTips">找好友集粽子</a>
+		<!-- <h5 id="statusTips">邀请4位好友帮忙收集粽子就可打开礼包</h5> -->
+		<a class="lqgiftbtn" id="play">点我收集</a>
 		<a class="lqgiftbtn" id="gift" style="display: none;">打开礼包</a>
-		<a class="lqgiftbtn" id="like" style="display: none;">帮好友助力</a>
+		<a class="lqgiftbtn" id="like" style="display: none;">帮TA一把</a>
 		<a class="lqgiftbtn" id="wantPlay" style="display: none;">我也要参与</a>
 		<div class="rulebox bs">
 			<h3>活动说明</h3>
@@ -209,9 +209,12 @@
 				// $(".sharetext").fadeIn();
 				// $("#mask0").fadeIn();
 				var $anchor = $(this);
-				$('html, body').stop().animate({
-					scrollTop: $($anchor.attr('href')).offset().top
-				}, 350);
+				$anchor.text("点右上角找好友帮忙");
+				// $anchor.css("width", "12rem");
+				$anchor.attr("class", "lqgift-toast");
+				// $('html, body').stop().animate({
+				// 	scrollTop: $($anchor.attr('href')).offset().top
+				// }, 350);
 			}
 		});
 
@@ -379,7 +382,7 @@ function showGameData(user) {
 
 function showUserInfo(user) {
 	$("#like").css('display','none');
-	$("#titleTips").text('全部集齐可以打开礼包');
+	$("#titleTips").text('收集4个粽子，领好礼');
 
 	if(user.userGift && user.userGift.status > 0) {
 		$('#mygift').css('display', 'block');
@@ -392,7 +395,7 @@ function showUserInfo(user) {
 		$("#play").css('display','none');
 		$("#gift").css('display','block');
 		
-		$("#statusTips").text("恭喜您集齐了4个粽子，可以打开礼包啦！");
+		// $("#statusTips").text("恭喜您集齐了4个粽子，可以打开礼包啦！");
 	} else {
 		$("#play").css('display','block');
 		$("#gift").css('display','none');
@@ -404,20 +407,20 @@ function showUserInfo(user) {
 function showShareUserInfo(shareUser) {
 
 	
-	$("#play").css('display','none'); 
-	$("#gift").css('display','none'); 
+	$("#play").css('display','none');
+	$("#gift").css('display','none');
 	$("#mygift").css('display','none');
 	console.log("showShareUserInfo() #mygift display none");
-	$("#titleTips").text('邀您助力集粽子领礼品');
+	$("#titleTips").text('邀您帮忙集粽子领礼品');
 
 	let likeCount = shareUser.likeList.length;
 	if (likeCount >= 4) {
-		$("#statusTips").text("您的好友集齐了4个粽子！可以打开礼包啦！");
+		// $("#statusTips").text("您的好友集齐了4个粽子！可以打开礼包啦！");
 		$("#wantPlay").css('display','block');
 		$("#like").css('display','none');
 	} else {
 		let remain = 4 - likeCount;
-		$("#statusTips").text("您的好友还差" + remain + "个粽子就能打开礼包");
+		// $("#statusTips").text("您的好友还差" + remain + "个粽子就能打开礼包");
 		$("#like").css('display','block');
 	}
 
